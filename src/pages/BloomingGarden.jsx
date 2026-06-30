@@ -399,7 +399,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.65)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           月額¥3,500から。自分のペースで、いつでも始められます。
         </p>
-        <a href="https://square.link/u/IuVHdIEV"
+        <a href="https://www.reservestock.jp/conclusions/MmQ4YzU3MTQ2Z"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"#C4714A"}}>
           Blooming Gardenに参加する
@@ -519,7 +519,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.75)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           Blooming Garden会員限定。¥6,500/月から。
         </p>
-        <a href="https://lin.ee/6d68Aqd"
+        <a href="https://www.reservestock.jp/conclusions/28510"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"rgba(255,255,255,0.2)",border:"1px solid rgba(255,255,255,0.5)"}}>
           Launch Labへの参加を相談する
