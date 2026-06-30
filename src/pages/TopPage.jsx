@@ -21,9 +21,10 @@ export default function TopPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F3]/90 backdrop-blur border-b border-[#2B5F7A]/10 px-6 py-4 flex justify-between items-center">
         <a href="/" className="font-serif text-[#2B5F7A] tracking-widest text-sm">BLOOM LINK</a>
         <div className="hidden md:flex gap-6 items-center">
-          <a href="/garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Blooming Garden</a>
-          <a href="/compass" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Compass Program</a>
-          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Business Program</a>
+          <a href="/garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">自分を整える</a>
+          <a href="/compass" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">軸を描く伴走</a>
+          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">ビジネス伴走</a>
+          <a href="/travel" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">✈️ 旅</a>
           <a href="/contact" className="text-xs tracking-widest px-5 py-2 rounded-full text-white transition-all hover:-translate-y-0.5" style={{background: "#C4714A"}}>お問い合わせ</a>
         </div>
       </nav>
@@ -72,15 +73,6 @@ export default function TopPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                name: "旅アドバイザー",
-                tag: "旅プランニング",
-                desc: "旅は観光ではなく、人生の可能性を広げる体験。40カ国以上の経験をもとに、あなたの旅をプランニング。",
-                href: "/travel",
-                price: "無料相談",
-                icon: "✈️",
-                color: "#2B5F7A",
-              },
-              {
                 name: "Blooming Garden",
                 tag: "コミュニティ",
                 desc: "ここは、自分に戻る場所。心と身体を整え、仲間と一緒に自分の軸を育てていく月額コミュニティ。",
@@ -108,13 +100,22 @@ export default function TopPage() {
                 color: "#C4714A",
               },
               {
-                name: "チームづくり・仕組み化",
-                tag: "BPO・業務支援",
-                desc: "経営者の業務を整理し、チームと仕組みを作るサポート。準備中。",
+                name: "経営者パートナーマッチング",
+                tag: "バックオフィスパートナー",
+                desc: "誰かの夢を支えながら自分も成長する。経営者の信頼できるパートナーとして、業務やチームづくりに一緒に向き合います。",
                 href: "/contact",
-                price: "要相談",
-                icon: "⚙️",
-                color: "#7A8E9A",
+                price: "無料相談",
+                icon: "🤝",
+                color: "#C9A96E",
+              },
+              {
+                name: "旅アドバイザー",
+                tag: "旅プランニング",
+                desc: "旅は観光ではなく、人生の可能性を広げる体験。40カ国以上の経験をもとに、あなたの旅をプランニング。",
+                href: "/travel",
+                price: "無料相談",
+                icon: "✈️",
+                color: "#2B5F7A",
               },
             ].map((item, i) => (
               <a key={i} href={item.href}
