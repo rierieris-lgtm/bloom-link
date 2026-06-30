@@ -352,8 +352,7 @@ export default function BloomingGardenPage() {
           <div className="bg-white rounded p-10" style={{boxShadow:"0 2px 20px rgba(43,95,122,0.07)",border:"1px solid #F0EBE0"}}>
             <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.8rem"}}>はじめの3ヶ月</p>
             <p className="font-serif text-[#2B5F7A]" style={{fontSize:"3.5rem",fontWeight:300,lineHeight:1}}>¥3,500</p>
-            <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.4rem",marginBottom:"0.3rem"}}>/月</p>
-            <p style={{fontSize:"0.72rem",color:"#C4714A",marginBottom:"1.5rem"}}>通常より¥2,000引き</p>
+            <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.4rem",marginBottom:"1.5rem"}}>/月</p>
             <p style={{fontSize:"0.8rem",lineHeight:2,color:"#7A8E9A"}}>
               まずは3ヶ月、自分のペースで参加してみてください。<br />
               3ヶ月後、自分に合ったペースを選べます。
