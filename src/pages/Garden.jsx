@@ -70,10 +70,11 @@ export default function BloomingGardenPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F3]/90 backdrop-blur border-b border-[#2B5F7A]/10 px-6 py-4 flex justify-between items-center">
         <a href="/" className="font-serif text-[#2B5F7A] tracking-widest text-sm">BLOOM LINK</a>
         <div className="hidden md:flex gap-6 items-center">
-          <a href="#garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Blooming Garden</a>
+          <a href="#garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">自分を整える</a>
           <a href="#launch" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Launch Lab</a>
           <a href="#rie" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">About Rie</a>
-          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Business Program</a>
+          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">ビジネス伴走</a>
+          <a href="/travel" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">✈️ 旅</a>
           <a href="#join" className="text-xs tracking-widest px-5 py-2 rounded-full text-white transition-all hover:-translate-y-0.5" style={{background: "#C4714A"}}>参加する</a>
         </div>
         <button className="md:hidden text-[#2B5F7A] text-xl" onClick={() => setMenuOpen(!menuOpen)}>
@@ -351,8 +352,7 @@ export default function BloomingGardenPage() {
           <div className="bg-white rounded p-10" style={{boxShadow:"0 2px 20px rgba(43,95,122,0.07)",border:"1px solid #F0EBE0"}}>
             <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.8rem"}}>はじめの3ヶ月</p>
             <p className="font-serif text-[#2B5F7A]" style={{fontSize:"3.5rem",fontWeight:300,lineHeight:1}}>¥3,500</p>
-            <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.4rem",marginBottom:"0.3rem"}}>/月</p>
-            <p style={{fontSize:"0.72rem",color:"#C4714A",marginBottom:"1.5rem"}}>通常より¥2,000引き</p>
+            <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.4rem",marginBottom:"1.5rem"}}>/月</p>
             <p style={{fontSize:"0.8rem",lineHeight:2,color:"#7A8E9A"}}>
               まずは3ヶ月、自分のペースで参加してみてください。<br />
               3ヶ月後、自分に合ったペースを選べます。
@@ -399,7 +399,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.65)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           月額¥3,500から。自分のペースで、いつでも始められます。
         </p>
-        <a href="https://www.reservestock.jp/inquiry/157663"
+        <a href="https://www.reservestock.jp/conclusions/MmQ4YzU3MTQ2Z"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"#C4714A"}}>
           Blooming Gardenに参加する
@@ -478,7 +478,6 @@ export default function BloomingGardenPage() {
               <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.5rem"}}>はじめの3ヶ月</p>
               <p className="font-serif text-[#2B5F7A]" style={{fontSize:"2.8rem",fontWeight:300,lineHeight:1}}>¥6,500</p>
               <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.3rem",marginBottom:"0.3rem"}}>/月</p>
-              <p style={{fontSize:"0.72rem",color:"#C4714A"}}>通常より¥2,000引き</p>
             </div>
             <p style={{fontSize:"0.78rem",lineHeight:2,color:"#7A8E9A",textAlign:"center"}}>
               3ヶ月後、自分に合ったペースを選べます。
@@ -519,7 +518,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.75)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           Blooming Garden会員限定。¥6,500/月から。
         </p>
-        <a href="https://lin.ee/6d68Aqd"
+        <a href="https://www.reservestock.jp/conclusions/28510"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"rgba(255,255,255,0.2)",border:"1px solid rgba(255,255,255,0.5)"}}>
           Launch Labへの参加を相談する

@@ -108,8 +108,10 @@ export default function BLBusinessProgram() {
         <a href="/" className="font-serif text-[#2B5F7A] tracking-widest text-sm">BLOOM LINK</a>
         <div className="hidden md:flex gap-6">
           <a href="/" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Home</a>
-          <a href="/" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Blooming Garden</a>
-          <a href="#" className="text-xs tracking-widest text-[#2B5F7A]">Business Program</a>
+          <a href="/garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">自分を整える</a>
+          <a href="/compass" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">軸を描く伴走</a>
+          <a href="#" className="text-xs tracking-widest text-[#2B5F7A]">ビジネス伴走</a>
+          <a href="/travel" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">✈️ 旅</a>
         </div>
       </nav>
 
