@@ -399,7 +399,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.65)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           月額¥3,500から。自分のペースで、いつでも始められます。
         </p>
-        <a href="https://www.reservestock.jp/inquiry/157663"
+        <a href="https://square.link/u/IuVHdIEV"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"#C4714A"}}>
           Blooming Gardenに参加する

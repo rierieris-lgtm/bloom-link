@@ -72,6 +72,15 @@ export default function TopPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
+                name: "旅アドバイザー",
+                tag: "旅プランニング",
+                desc: "旅は観光ではなく、人生の可能性を広げる体験。40カ国以上の経験をもとに、あなたの旅をプランニング。",
+                href: "/travel",
+                price: "無料相談",
+                icon: "✈️",
+                color: "#2B5F7A",
+              },
+              {
                 name: "Blooming Garden",
                 tag: "コミュニティ",
                 desc: "ここは、自分に戻る場所。心と身体を整え、仲間と一緒に自分の軸を育てていく月額コミュニティ。",

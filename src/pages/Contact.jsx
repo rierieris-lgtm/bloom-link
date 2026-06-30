@@ -2,14 +2,23 @@ import { useState } from "react";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = () => {
-    const mailto = `mailto:rie@bloomlink-works.com?subject=${encodeURIComponent(form.subject || "お問い合わせ")}&body=${encodeURIComponent(`お名前: ${form.name}\nメール: ${form.email}\n\n${form.message}`)}`;
-    window.location.href = mailto;
-    setSent(true);
+  const handleSubmit = async () => {
+    setSending(true);
+    try {
+      const res = await fetch("https://formspree.io/f/mnjkbayo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) setSent(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -36,7 +45,7 @@ export default function Contact() {
               ありがとうございます。
             </p>
             <p style={{fontSize: "0.82rem", color: "#7A8E9A", lineHeight: 2}}>
-              メールアプリが開きます。<br />送信ボタンを押して送信してください。
+              メッセージを受け取りました。<br />2〜3営業日以内にご返信いたします。
             </p>
             <a href="/" className="inline-block mt-6 text-xs tracking-widest px-8 py-3 rounded-full text-white" style={{background: "#2B5F7A"}}>
               トップへ戻る
@@ -78,9 +87,10 @@ export default function Contact() {
             </div>
             <button
               onClick={handleSubmit}
+              disabled={sending}
               className="w-full text-white text-xs tracking-widest py-4 rounded-full transition-all hover:-translate-y-0.5"
-              style={{background: "#2B5F7A"}}>
-              送信する
+              style={{background: "#2B5F7A", opacity: sending ? 0.7 : 1, cursor: sending ? 'default' : 'pointer'}}>
+              {sending ? '送信中...' : '送信する'}
             </button>
             <p style={{fontSize: "0.72rem", color: "#7A8E9A", textAlign: "center", lineHeight: 2}}>
               または直接メールでも承ります：<br />
