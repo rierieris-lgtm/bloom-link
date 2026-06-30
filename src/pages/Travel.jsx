@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { IMG_MALTA, IMG_HAWAII, IMG_CHIANGMAI, IMG_BATLLO, IMG_KIMONO } from './TopPage'
 
 const FOREST = "#2B5F7A"
 const TERRA = "#C4714A"
@@ -128,6 +129,85 @@ export default function Travel() {
                 <h3 className="font-serif" style={{ fontSize: '1.05rem', fontWeight: 300, color: FOREST, margin: '1rem 0 0.8rem' }}>{item.title}</h3>
                 <p style={{ fontSize: '0.78rem', lineHeight: 2, color: '#8A98A5', marginBottom: '1.2rem' }}>{item.desc}</p>
                 <p style={{ fontSize: '0.72rem', color: TERRA, letterSpacing: '0.1em' }}>{item.price} →</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRAVEL SAMPLES */}
+      <section style={{ padding: '6rem 2rem', background: ECRU }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <span style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: TERRA, textTransform: 'uppercase' }}>Travel Samples</span>
+            <h2 className="font-serif reveal" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 300, color: FOREST, marginTop: '1rem' }}>
+              旅で出会った、私の世界
+            </h2>
+            <p className="reveal reveal-d1" style={{ fontSize: '0.8rem', lineHeight: 2, color: '#8A98A5', marginTop: '1rem' }}>
+              学校見学、自然、ひとり旅、文化体験 — 40カ国の経験から、あなたに合う旅を提案します。
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.8rem' }}>
+            {[
+              { img: IMG_CHIANGMAI, jp: '自然に触れる親子旅', loc: 'CHIANG MAI, THAILAND' },
+              { img: IMG_HAWAII, jp: '自分と向き合うひとり旅', loc: 'ISLAND OF HAWAII' },
+              { img: IMG_MALTA, jp: '地中海の島めぐり', loc: 'MALTA' },
+              { img: IMG_KIMONO, jp: '日本の美しさに還る旅', loc: 'JAPAN' },
+              { img: IMG_BATLLO, jp: '建築と芸術に出会う旅', loc: 'BARCELONA, SPAIN' },
+            ].map((item, i) => (
+              <div key={i} className={`reveal reveal-d${i % 3}`} style={{ position: 'relative', overflow: 'hidden', borderRadius: 6, aspectRatio: '3/4' }}>
+                <img src={item.img} alt={item.jp} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0.7rem 0.6rem', background: 'linear-gradient(to top, rgba(42,53,64,0.75), transparent)' }}>
+                  <p style={{ fontSize: '0.68rem', color: 'white', marginBottom: '0.15rem' }}>{item.jp}</p>
+                  <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.08em' }}>{item.loc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.05em', color: '#8A98A5', marginBottom: '1rem' }}>他にも、こんな旅を</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem' }}>
+              {[
+                '10代、合唱団で立った舞台 — オーストリア＆ウェールズ',
+                '母と娘、ふたり旅のペナン島',
+                '出会いが連れてきてくれた、香港ひとり旅',
+                '食べて、歩いて、また食べる韓国',
+                '結婚10年目、ふたりで歩いたシドニー',
+                '北欧を、ひとりで巡る',
+                '世界中に友達ができた、ロンドン留学',
+                '芸術と美食を味わい尽くす、パリ',
+              ].map((chip, i) => (
+                <span key={i} style={{ fontSize: '0.68rem', color: FOREST, border: `1px solid rgba(43,95,122,0.25)`, borderRadius: 100, padding: '0.4rem 0.9rem' }}>{chip}</span>
+              ))}
+            </div>
+            <p style={{ fontSize: '0.7rem', color: '#8A98A5', marginTop: '1.2rem' }}>そのほか、台湾、中国、フィリピン、エストニア、フィンランド… 旅の物語は、まだまだ続きます。</p>
+          </div>
+        </div>
+      </section>
+
+      {/* VOICES */}
+      <section style={{ padding: '6rem 2rem', background: 'white' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <span style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: TERRA, textTransform: 'uppercase' }}>お客様の声</span>
+            <h2 className="font-serif reveal" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 300, color: FOREST, marginTop: '1rem' }}>
+              Rieと関わると、<em style={{ fontStyle: 'italic' }}>何が起きるのか</em>。
+            </h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
+            {[
+              { num: '01', title: '新しい世界が見える', quotes: ['「やりたいことの方向性に自信が持てた」', '「今後の道筋が見えた」', '「好きなことを仕事につなげられた」'] },
+              { num: '02', title: '人とのつながりが生まれる', quotes: ['「初対面でも安心して話せた」', '「本音でつながれる仲間ができた」', '「一人ではなくチームで進めた」'] },
+              { num: '03', title: '行動する勇気が持てる', quotes: ['「自信を持って動けるようになった」', '「直感的に行動できるようになった」', '「安心感があったから挑戦できた」'] },
+            ].map((item, i) => (
+              <div key={i} className={`reveal reveal-d${i}`} style={{ background: ECRU, borderRadius: 8, padding: '2rem' }}>
+                <span style={{ fontSize: '0.65rem', color: TERRA, letterSpacing: '0.1em' }}>{item.num}</span>
+                <h3 className="font-serif" style={{ fontSize: '1.1rem', fontWeight: 300, color: FOREST, margin: '0.6rem 0 1rem' }}>{item.title}</h3>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                  {item.quotes.map((q, j) => (
+                    <li key={j} style={{ fontSize: '0.78rem', lineHeight: 1.8, color: '#8A98A5' }}>{q}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
