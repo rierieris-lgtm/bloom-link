@@ -75,9 +75,10 @@ export default function CompassProgram() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F3]/90 backdrop-blur border-b border-[#2B5F7A]/10 px-6 py-4 flex justify-between items-center">
         <a href="/" className="font-serif text-[#2B5F7A] tracking-widest text-sm">BLOOM LINK</a>
         <div className="hidden md:flex gap-6 items-center">
-          <a href="/" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Blooming Garden</a>
-          <a href="/compass" className="text-xs tracking-widest text-[#2B5F7A]">Compass Program</a>
-          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Business Program</a>
+          <a href="/garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">自分を整える</a>
+          <a href="/compass" className="text-xs tracking-widest text-[#2B5F7A]">軸を描く伴走</a>
+          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">ビジネス伴走</a>
+          <a href="/travel" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">✈️ 旅</a>
           <a href="#apply" className="text-xs tracking-widest px-5 py-2 rounded-full text-white transition-all hover:-translate-y-0.5" style={{background: "#C4714A"}}>相談する</a>
         </div>
       </nav>

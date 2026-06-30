@@ -70,10 +70,11 @@ export default function BloomingGardenPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F3]/90 backdrop-blur border-b border-[#2B5F7A]/10 px-6 py-4 flex justify-between items-center">
         <a href="/" className="font-serif text-[#2B5F7A] tracking-widest text-sm">BLOOM LINK</a>
         <div className="hidden md:flex gap-6 items-center">
-          <a href="#garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Blooming Garden</a>
+          <a href="#garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">自分を整える</a>
           <a href="#launch" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Launch Lab</a>
           <a href="#rie" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">About Rie</a>
-          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Business Program</a>
+          <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">ビジネス伴走</a>
+          <a href="/travel" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">✈️ 旅</a>
           <a href="#join" className="text-xs tracking-widest px-5 py-2 rounded-full text-white transition-all hover:-translate-y-0.5" style={{background: "#C4714A"}}>参加する</a>
         </div>
         <button className="md:hidden text-[#2B5F7A] text-xl" onClick={() => setMenuOpen(!menuOpen)}>
@@ -399,7 +400,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.65)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           月額¥3,500から。自分のペースで、いつでも始められます。
         </p>
-        <a href="https://www.reservestock.jp/inquiry/157663"
+        <a href="https://www.reservestock.jp/conclusions/MmQ4YzU3MTQ2Z"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"#C4714A"}}>
           Blooming Gardenに参加する
@@ -519,7 +520,7 @@ export default function BloomingGardenPage() {
         <p style={{color:"rgba(255,255,255,0.75)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
           Blooming Garden会員限定。¥6,500/月から。
         </p>
-        <a href="https://lin.ee/6d68Aqd"
+        <a href="https://www.reservestock.jp/conclusions/28510"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
           style={{background:"rgba(255,255,255,0.2)",border:"1px solid rgba(255,255,255,0.5)"}}>
           Launch Labへの参加を相談する

@@ -48,7 +48,7 @@ export default function Travel() {
       }}>
         <a href="/" className="font-serif" style={{ fontSize: '1.2rem', letterSpacing: '0.15em', color: FOREST, textDecoration: 'none' }}>BLOOM LINK</a>
         <div className="hidden md:flex" style={{ gap: '2rem' }}>
-          {[['ホーム', '/'], ['Blooming Garden', '/garden'], ['Compass', '/compass'], ['お問い合わせ', '/contact']].map(([label, href]) => (
+          {[['ホーム', '/'], ['自分を整える', '/garden'], ['軸を描く伴走', '/compass'], ['ビジネス伴走', '/business-program'], ['お問い合わせ', '/contact']].map(([label, href]) => (
             <a key={label} href={href} style={{ fontSize: '0.72rem', letterSpacing: '0.12em', color: '#5A7287', textDecoration: 'none' }}>{label}</a>
           ))}
         </div>
@@ -60,7 +60,7 @@ export default function Travel() {
       {/* MOBILE MENU */}
       {menuOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(250,248,243,0.98)', zIndex: 99, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
-          {[['ホーム', '/'], ['Blooming Garden', '/garden'], ['Compass', '/compass'], ['お問い合わせ', '/contact']].map(([label, href]) => (
+          {[['ホーム', '/'], ['自分を整える', '/garden'], ['軸を描く伴走', '/compass'], ['ビジネス伴走', '/business-program'], ['お問い合わせ', '/contact']].map(([label, href]) => (
             <a key={label} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: '1rem', letterSpacing: '0.15em', color: FOREST, textDecoration: 'none' }}>{label}</a>
           ))}
         </div>
