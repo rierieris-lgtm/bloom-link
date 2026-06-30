@@ -122,7 +122,7 @@ export default function TopPage() {
                 className="block bg-white rounded p-7 transition-all hover:-translate-y-0.5"
                 style={{boxShadow: "0 2px 20px rgba(43,95,122,0.07)", border: "1px solid #F0EBE0"}}>
                 <div className="flex items-center gap-3 mb-4">
-                  <span style={{fontSize: "1.5rem"}}>{}</span>
+                  <span style={{fontSize: "1.5rem", lineHeight: 1}}>{item.icon}</span>
                   <span style={{fontSize: "0.65rem", letterSpacing: "0.15em", color: item.color, border: `1px solid ${item.color}`, padding: "0.2rem 0.6rem", borderRadius: 100, opacity: 0.8}}>{item.tag}</span>
                 </div>
                 <p className="font-serif text-[#2B5F7A] mb-3" style={{fontSize: "1.1rem", fontWeight: 300}}>{item.name}</p>
