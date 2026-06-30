@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { IMG_MALTA, IMG_HAWAII, IMG_CHIANGMAI, IMG_BATLLO, IMG_KIMONO } from './TopPage'
 
 const FOREST = "#2B5F7A"
 const TERRA = "#C4714A"
@@ -149,11 +148,14 @@ export default function Travel() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.8rem' }}>
             {[
-              { img: IMG_CHIANGMAI, jp: '自然に触れる親子旅', loc: 'CHIANG MAI, THAILAND' },
-              { img: IMG_HAWAII, jp: '自分と向き合うひとり旅', loc: 'ISLAND OF HAWAII' },
-              { img: IMG_MALTA, jp: '地中海の島めぐり', loc: 'MALTA' },
-              { img: IMG_KIMONO, jp: '日本の美しさに還る旅', loc: 'JAPAN' },
-              { img: IMG_BATLLO, jp: '建築と芸術に出会う旅', loc: 'BARCELONA, SPAIN' },
+              { img: '/travel/malaysia.jpg', jp: '子どもの世界が広がる旅', loc: 'MALAYSIA' },
+              { img: '/travel/chiangmai.jpg', jp: '自然に触れる親子旅', loc: 'CHIANG MAI, THAILAND' },
+              { img: '/travel/hawaii.jpg', jp: '自分と向き合うひとり旅', loc: 'ISLAND OF HAWAII' },
+              { img: '/travel/phiphi.jpg', jp: 'まだ見ぬ景色に出会う旅', loc: 'PHI PHI ISLANDS' },
+              { img: '/travel/malta.jpg', jp: '地中海の島めぐり', loc: 'MALTA' },
+              { img: '/travel/japan.jpg', jp: '日本の美しさに還る旅', loc: 'JAPAN' },
+              { img: '/travel/barcelona.jpg', jp: '建築と芸術に出会う旅', loc: 'BARCELONA, SPAIN' },
+              { img: '/travel/windowseat.jpg', jp: '移動さえも、旅の一部', loc: 'WINDOW SEAT' },
             ].map((item, i) => (
               <div key={i} className={`reveal reveal-d${i % 3}`} style={{ position: 'relative', overflow: 'hidden', borderRadius: 6, aspectRatio: '3/4' }}>
                 <img src={item.img} alt={item.jp} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
