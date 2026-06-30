@@ -118,10 +118,10 @@ export default function Travel() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
             {[
-              { tag: '旅アドバイス', title: '旅の相談・アドバイス', desc: 'どこへ行きたいか、何を求めているかから一緒に考えます。旅の目的を整理し、あなたに合った旅のスタイルを見つける伴走。', price: '要相談' },
-              { tag: '旅プランニング', title: '旅のプランニング', desc: 'ルート・宿・移動・体験。旅の全体像をプランニング。観光ガイドには載っていない、本質的な旅の設計をします。', price: '要相談' },
-              { tag: '海外体験', title: '海外体験サポート', desc: '初めての海外、英語が不安、一人では難しい。そんな方のための海外体験のサポート。準備から現地でのケアまで。', price: '要相談' },
-              { tag: '親子旅', title: '親子旅のプランニング', desc: '子どもと一緒に世界を見た経験を活かし、親子旅をプランニング。子どもにとって本物の体験になる旅を一緒に作ります。', price: '要相談' },
+              { tag: '旅アドバイス', title: '旅の相談・アドバイス', desc: 'どこへ行きたいか、何を求めているかから一緒に考えます。旅の目的を整理し、あなたに合った旅のスタイルを見つける伴走。', price: '無料相談' },
+              { tag: '旅プランニング', title: '旅のプランニング', desc: 'ルート・宿・移動・体験。旅の全体像をプランニング。観光ガイドには載っていない、本質的な旅の設計をします。', price: '無料相談' },
+              { tag: '海外体験', title: '海外体験サポート', desc: '初めての海外、英語が不安、一人では難しい。そんな方のための海外体験のサポート。準備から現地でのケアまで。', price: '無料相談' },
+              { tag: '親子旅', title: '親子旅のプランニング', desc: '子どもと一緒に世界を見た経験を活かし、親子旅をプランニング。子どもにとって本物の体験になる旅を一緒に作ります。', price: '無料相談' },
             ].map((item, i) => (
               <div key={i} className={`reveal reveal-d${i % 3}`} style={{ background: 'white', borderRadius: 8, padding: '2rem', boxShadow: '0 2px 16px rgba(43,95,122,0.07)' }}>
                 <span style={{ fontSize: '0.65rem', letterSpacing: '0.15em', color: FOREST, border: `1px solid ${FOREST}`, padding: '0.2rem 0.7rem', borderRadius: 100, opacity: 0.7 }}>{item.tag}</span>

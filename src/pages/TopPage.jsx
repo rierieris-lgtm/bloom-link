@@ -76,7 +76,7 @@ export default function TopPage() {
                 tag: "旅プランニング",
                 desc: "旅は観光ではなく、人生の可能性を広げる体験。40カ国以上の経験をもとに、あなたの旅をプランニング。",
                 href: "/travel",
-                price: "要相談",
+                price: "無料相談",
                 icon: "✈️",
                 color: "#2B5F7A",
               },
