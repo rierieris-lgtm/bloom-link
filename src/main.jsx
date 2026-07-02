@@ -10,6 +10,7 @@ import Privacy from './pages/Privacy'
 import Tokutei from './pages/Tokutei'
 import Contact from './pages/Contact'
 import Travel from './pages/Travel'
+import BridgeToJapan from './pages/BridgeToJapan'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/tokutei" element={<Tokutei />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/travel" element={<Travel />} />
+        <Route path="/bridge-to-japan" element={<BridgeToJapan />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
