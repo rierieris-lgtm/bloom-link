@@ -58,10 +58,10 @@ export default function BloomingGardenPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#2A3540]" style={{fontFamily: "'Zen Maru Gothic', sans-serif"}}>
+    <div className="min-h-screen bg-[#FAF8F3] text-[#2A3540]" style={{fontFamily: "'Zen Kaku Gothic New', sans-serif"}}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Maru+Gothic:wght@300;400;500&display=swap');
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Old+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap');
+        .font-serif { font-family: 'Cormorant Garamond', 'Zen Old Mincho', serif; }
         html { scroll-behavior: smooth; }
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }

@@ -1,7 +1,7 @@
 export default function Privacy() {
   return (
-    <div className="min-h-screen bg-[#FAF8F3]" style={{fontFamily: "'Zen Maru Gothic', sans-serif"}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Maru+Gothic:wght@300;400;500&display=swap'); .font-serif { font-family: 'Cormorant Garamond', serif; }`}</style>
+    <div className="min-h-screen bg-[#FAF8F3]" style={{fontFamily: "'Zen Kaku Gothic New', sans-serif"}}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Old+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap'); .font-serif { font-family: 'Cormorant Garamond', 'Zen Old Mincho', serif; }`}</style>
 
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F3]/90 backdrop-blur border-b border-[#2B5F7A]/10 px-6 py-4 flex justify-between items-center">
         <a href="/" className="font-serif text-[#2B5F7A] tracking-widest text-sm">BLOOM LINK</a>

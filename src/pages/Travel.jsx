@@ -25,10 +25,10 @@ export default function Travel() {
   }, [])
 
   return (
-    <div style={{ fontFamily: "'Noto Sans JP', sans-serif", fontWeight: 300, background: ECRU, color: '#3A4754', overflowX: 'hidden' }}>
+    <div style={{ fontFamily: "'Zen Kaku Gothic New', sans-serif", fontWeight: 300, background: ECRU, color: '#3A4754', overflowX: 'hidden' }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400&display=swap');
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Old+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap');
+        .font-serif { font-family: 'Cormorant Garamond', 'Zen Old Mincho', serif; }
         .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .reveal-d1 { transition-delay: 0.1s; }

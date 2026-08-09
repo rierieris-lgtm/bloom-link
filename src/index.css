@@ -12,10 +12,17 @@ html {
   scroll-behavior: smooth;
 }
 
-/* 日本語の折り返しを文節単位にする。
-   「BLOOM LINKのすべての土台になってい／ます。」のような
-   不自然な位置での改行を防ぐ。未対応ブラウザは既定動作に落ちるだけ。 */
+/* 本文＝Zen Kaku Gothic New。和文にフォント指定がないと
+   閲覧環境ごとに別の書体で表示されてしまうため、明示的に揃える。 */
 body {
+  font-family: 'Zen Kaku Gothic New', -apple-system, BlinkMacSystemFont,
+    'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  color: #2B5F7A;
+  -webkit-font-smoothing: antialiased;
+
+  /* 日本語の折り返しを文節単位にする。
+     「BLOOM LINKのすべての土台になってい／ます。」のような
+     不自然な位置での改行を防ぐ。未対応ブラウザは既定動作に落ちるだけ。 */
   word-break: auto-phrase;
 }
 
@@ -29,6 +36,9 @@ p, li {
   text-wrap: pretty;
 }
 
+/* 見出し。英字はCormorant Garamond、和文はZen Old Minchoが受け持つ。
+   Cormorantに日本語の字形が無いため、この順で自動的に切り替わる。 */
 .font-serif {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', 'Zen Old Mincho',
+    'Hiragino Mincho ProN', 'Yu Mincho', serif;
 }
