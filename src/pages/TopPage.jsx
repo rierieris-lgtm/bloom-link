@@ -154,9 +154,9 @@ export default function TopPage() {
               {img: "/travel/india-tajmahal.jpg", label: "タージ・マハル"},
               {img: "/travel/uzbekistan-samarkand.jpg", label: "サマルカンド"},
               {img: "/travel/hawaii.jpg", label: "ハワイ島"},
-              {img: "/travel/india-agrafort.jpg", label: "アグラ"},
+              {img: "/travel/india-agrafort.jpg", label: "アグラ城"},
               {img: "/travel/chiangmai.jpg", label: "チェンマイ"},
-              {img: "/travel/india-archway.jpg", label: "インド"},
+              {img: "/travel/india-archway.jpg", label: "アグラ城の内側"},
               {img: "/travel/barcelona.jpg", label: "バルセロナ"},
             ].map((item, i) => (
               <div key={i} className="relative overflow-hidden rounded" style={{aspectRatio: "3/4"}}>

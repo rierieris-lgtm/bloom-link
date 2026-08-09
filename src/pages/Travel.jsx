@@ -157,8 +157,8 @@ export default function Travel() {
               { img: '/travel/barcelona.jpg', jp: '建築と芸術に出会う旅', loc: 'BARCELONA, SPAIN' },
               { img: '/travel/india-tajmahal.jpg', jp: '一度は立ちたかった場所へ', loc: 'TAJ MAHAL, INDIA' },
               { img: '/travel/uzbekistan-samarkand.jpg', jp: '青のタイルに包まれる旅', loc: 'SAMARKAND, UZBEKISTAN' },
-              { img: '/travel/india-agrafort.jpg', jp: '歴史の厚みを歩く旅', loc: 'AGRA, INDIA' },
-              { img: '/travel/india-archway.jpg', jp: '光の向こうへ、一歩', loc: 'INDIA' },
+              { img: '/travel/india-agrafort.jpg', jp: '歴史の厚みを歩く旅', loc: 'AGRA FORT, INDIA' },
+              { img: '/travel/india-archway.jpg', jp: '光の向こうへ、一歩', loc: 'AGRA FORT, INDIA' },
               { img: '/travel/uzbekistan-origami.jpg', jp: '折り紙でつながる時間', loc: 'UZBEKISTAN' },
               { img: '/travel/windowseat.jpg', jp: '移動さえも、旅の一部', loc: 'WINDOW SEAT' },
             ].map((item, i) => (
