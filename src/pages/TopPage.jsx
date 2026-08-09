@@ -171,6 +171,41 @@ export default function TopPage() {
         </div>
       </section>
 
+      {/* JAPANESE LESSON — ウズベキスタンの日本語学校 */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-xs tracking-[0.3em] text-[#C4714A] uppercase">Japanese Lesson</span>
+            <h2 className="font-serif text-[#2B5F7A] mt-4"
+              style={{fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 300}}>
+              日本語を、教えています。
+            </h2>
+            <p className="mt-4" style={{fontSize: "0.85rem", lineHeight: 2.2, color: "#7A8E9A"}}>
+              ウズベキスタンの日本語学校で、子どもたちに日本語を教えています。<br />
+              ひらがなを一文字ずつ、一緒に。
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {img: "/travel/uzbekistan-lesson.jpg", label: "ウズベキスタン｜ひらがなの練習"},
+              {img: "/travel/uzbekistan-flashcards.jpg", label: "ウズベキスタン｜ことばのカードで"},
+            ].map((item, i) => (
+              <div key={i} className="relative overflow-hidden rounded" style={{aspectRatio: "16/9"}}>
+                <img src={item.img} alt={item.label}
+                  style={{width: "100%", height: "100%", objectFit: "cover"}} />
+                <div style={{position: "absolute", bottom: 0, left: 0, right: 0, padding: "0.8rem 0.7rem",
+                  background: "linear-gradient(to top, rgba(42,53,64,0.7), transparent)"}}>
+                  <p style={{fontSize: "0.65rem", color: "rgba(255,255,255,0.9)", letterSpacing: "0.08em"}}>{item.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-center mt-8" style={{fontSize: "0.78rem", lineHeight: 2, color: "#7A8E9A"}}>
+            日本語レッスンは、Blooming Garden・Launch Labのメンバーは受講者限定料金でご参加いただけます。
+          </p>
+        </div>
+      </section>
+
       {/* ABOUT RIE */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
