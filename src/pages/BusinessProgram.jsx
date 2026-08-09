@@ -332,7 +332,7 @@ export default function BLBusinessProgram() {
           <div className="grid md:grid-cols-3 gap-4">
             {[
               { name: "Blooming Garden", desc: "まだ知らない自分と世界に出会う、土台のコミュニティ。", href: "bloom-link-salons.html", price: "¥3,500/月〜", current: false },
-              { name: "Launch Lab", desc: "挑戦を形にする、ビジネス実践コミュニティ。", href: "bloom-link-salons.html#launch", price: "¥6,500/月〜", current: false },
+              { name: "Launch Lab", desc: "挑戦を形にする、ビジネス実践コミュニティ。Blooming Gardenとセットでのご参加です。", href: "bloom-link-salons.html#launch", price: "¥10,000/月〜", current: false },
               { name: "Business Program", desc: "オンラインで収益を作る、6ヶ月の実践プログラム。", href: "#", price: "¥330,000", current: true },
             ].map((item, i) => (
               <a key={i} href={item.href}

@@ -476,16 +476,24 @@ export default function BloomingGardenPage() {
           </div>
           <div className="mt-8 bg-white rounded p-6" style={{border:"1px solid #EDF3F7"}}>
             <div className="text-center mb-4">
-              <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.5rem"}}>はじめの3ヶ月</p>
-              <p className="font-serif text-[#2B5F7A]" style={{fontSize:"2.8rem",fontWeight:300,lineHeight:1}}>¥6,500</p>
+              <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.5rem"}}>はじめの3ヶ月／Blooming Gardenとセット</p>
+              <p className="font-serif text-[#2B5F7A]" style={{fontSize:"2.8rem",fontWeight:300,lineHeight:1}}>¥10,000</p>
               <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.3rem",marginBottom:"0.3rem"}}>/月</p>
+            </div>
+            <div style={{maxWidth:300,margin:"0 auto 1.2rem",fontSize:"0.75rem",color:"#7A8E9A",lineHeight:2}}>
+              <div className="flex justify-between">
+                <span>Blooming Garden</span><span>¥3,500/月</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Launch Lab</span><span>¥6,500/月</span>
+              </div>
             </div>
             <p style={{fontSize:"0.78rem",lineHeight:2,color:"#7A8E9A",textAlign:"center"}}>
               3ヶ月後、自分に合ったペースを選べます。
             </p>
             <div style={{borderTop:"1px solid #F0EBE0",marginTop:"1.2rem",paddingTop:"1.2rem"}}>
               <p style={{fontSize:"0.75rem",color:"#7A8E9A",lineHeight:2}}>
-                <strong style={{color:"#2B5F7A"}}>参加条件：</strong>Blooming Gardenへの同時または事前入会が必要です。
+                <strong style={{color:"#2B5F7A"}}>参加条件：</strong>Blooming Gardenへの同時または事前入会が必要です。Launch Labは単体ではご参加いただけません。
               </p>
             </div>
           </div>
@@ -517,7 +525,7 @@ export default function BloomingGardenPage() {
           小さく試して、<br />世界へ解き放とう。
         </h2>
         <p style={{color:"rgba(255,255,255,0.75)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
-          Blooming Garden会員限定。¥6,500/月から。
+          Blooming Gardenとセットで、月額¥10,000から。<br />（Blooming Garden ¥3,500 ＋ Launch Lab ¥6,500）
         </p>
         <a href="https://www.reservestock.jp/conclusions/28510"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
