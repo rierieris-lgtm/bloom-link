@@ -151,8 +151,12 @@ export default function TopPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               {img: "/travel/malta.jpg", label: "マルタ・バレッタ"},
+              {img: "/travel/india-tajmahal.jpg", label: "タージ・マハル"},
+              {img: "/travel/uzbekistan-samarkand.jpg", label: "サマルカンド"},
               {img: "/travel/hawaii.jpg", label: "ハワイ島"},
+              {img: "/travel/india-agrafort.jpg", label: "アグラ"},
               {img: "/travel/chiangmai.jpg", label: "チェンマイ"},
+              {img: "/travel/india-archway.jpg", label: "インド"},
               {img: "/travel/barcelona.jpg", label: "バルセロナ"},
             ].map((item, i) => (
               <div key={i} className="relative overflow-hidden rounded" style={{aspectRatio: "3/4"}}>
