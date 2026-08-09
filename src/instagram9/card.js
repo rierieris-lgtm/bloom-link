@@ -140,11 +140,39 @@ export const CARD_CSS = `
 .ig-step:last-child { border-bottom: 1px solid ${TOKENS.line}; }
 .ig-step-no { font-weight: 400; font-size: 19px; letter-spacing: 0.12em; color: ${TOKENS.gold}; }
 
+/* 04 — 構造を変える4手。順番そのものを図で見せる */
+.ig-flow { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-start; }
+.ig-flow-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.ig-flow-icon { width: 46px; height: 46px; color: ${TOKENS.navy}; }
+.ig-flow-icon svg { width: 100%; height: 100%; display: block; }
+.ig-flow-label { font-size: 23px; font-weight: 300; letter-spacing: 0.06em; color: ${TOKENS.charcoal}; white-space: nowrap; }
+.ig-flow-arrow { flex: none; width: 34px; margin-top: 22px; color: ${TOKENS.gold}; }
+.ig-flow-arrow svg { width: 100%; display: block; }
+
 /* 09 — 01から09までを閉じるインデックス */
 .ig-index { display: flex; gap: 20px; }
 .ig-index span { font-weight: 300; font-size: 20px; letter-spacing: 0.12em; color: rgba(43,95,122,0.3); }
 .ig-index span.on { color: ${TOKENS.gold}; }
+
+/* 09 — 物語を自分の名前で閉じる */
+.ig-sign {
+  font-family: 'Italianno', 'Cormorant Garamond', cursive;
+  font-weight: 400; font-size: 62px; line-height: 1; color: ${TOKENS.navy};
+}
 `
+
+/** 04で使う線画アイコン。太らせず、細い線のまま置く。 */
+const ICONS = {
+  sort: '<line x1="3" y1="6.5" x2="21" y2="6.5"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="17.5" x2="9" y2="17.5"/>',
+  stop: '<circle cx="12" cy="12" r="8.2"/><line x1="6.2" y1="17.8" x2="17.8" y2="6.2"/>',
+  // 自分（塗り）から相手（線）へ渡す。他の3つと同じ視覚的な重さになるよう円で揃える。
+  hand: '<circle cx="5.2" cy="12" r="3" fill="currentColor" stroke="none"/><circle cx="18.8" cy="12" r="3"/><line x1="9.6" y1="12" x2="14.2" y2="12"/><polyline points="12.6,10.3 14.3,12 12.6,13.7"/>',
+  system:
+    '<rect x="2.5" y="4" width="8" height="6.4" rx="1.6"/><rect x="13.5" y="13.6" width="8" height="6.4" rx="1.6"/><path d="M10.5 7.2 h4 a3 3 0 0 1 3 3 v3.4"/>',
+}
+
+const svg = paths =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
@@ -172,12 +200,13 @@ const body = p => `
 
 const foot = p =>
   p.variant === 'finale'
-    ? // 09はコピー自体がシリーズの一文なので、フッターで繰り返さない
-      `<div class="ig-foot">
+    ? // 09はコピー自体がシリーズの一文なので、フッターで繰り返さない。
+      // 左に01-09のインデックスで物語を閉じ、右は屋号ではなく本人の署名にする。
+      `<div class="ig-foot" style="align-items:flex-end">
       <div class="ig-index ig-latin">${['01', '02', '03', '04', '05', '06', '07', '08', '09']
         .map(n => `<span class="${n === p.no ? 'on' : ''}">${n}</span>`)
         .join('')}</div>
-      <div class="ig-foot-mark ig-latin">BLOOM LINK</div>
+      ${p.signature ? `<div class="ig-sign">${esc(p.signature)}</div>` : ''}
     </div>`
     : `<div class="ig-foot">
       <div class="ig-foot-tag">仕事を軽くして、人生を広げる。</div>
@@ -224,7 +253,23 @@ const VARIANTS = {
       </div>`,
   }),
 
-  /** AIに渡す前に決める5つ。写真を使わず、考える順序そのものを見せる。 */
+  /** 構造を変える4手。05の「問い」に対して、こちらは「動作」を横並びで見せる。 */
+  flow: p => ({
+    media: `<div class="ig-flow">
+        ${p.flow
+          .map(
+            (s, i) =>
+              `${i ? `<div class="ig-flow-arrow">${svg('<line x1="2" y1="12" x2="20" y2="12"/><polyline points="16,8.4 20,12 16,15.6"/>')}</div>` : ''}
+        <div class="ig-flow-step">
+          <div class="ig-flow-icon">${svg(ICONS[s.icon])}</div>
+          <div class="ig-flow-label">${esc(s.label)}</div>
+        </div>`
+          )
+          .join('\n        ')}
+      </div>`,
+  }),
+
+  /** AIに渡す前に決める4つ。写真を使わず、考える順序そのものを見せる。 */
   steps: p => ({
     media: `<div class="ig-steps">
         ${p.steps

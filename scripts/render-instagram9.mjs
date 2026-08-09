@@ -18,6 +18,7 @@ import { fileURLToPath } from 'node:url'
 
 import { posts } from '../src/instagram9/posts.js'
 import { CANVAS, CARD_CSS, cardHTML } from '../src/instagram9/card.js'
+import { missingGlyphs } from '../src/instagram9/glyphs.js'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const PUBLIC = resolve(ROOT, 'public')
@@ -103,9 +104,19 @@ async function main() {
 
   const fontCSS = await readFile(resolve(OUT_DIR, 'fonts/fonts.css'), 'utf8').catch(() => {
     throw new Error(
-      'public/instagram/fonts/fonts.css がありません。先に `node scripts/fetch-card-fonts.mjs` を実行してください。'
+      'public/instagram/fonts/fonts.css がありません。先に `npm run ig:fonts` を実行してください。'
     )
   })
+
+  // フォントは表紙で使う文字だけに絞ってある。コピーに新しい漢字を足したあと
+  // ig:fonts を流し忘れると豆腐（□）のまま書き出されるので、ここで止める。
+  const missing = missingGlyphs(fontCSS)
+  if (missing.length) {
+    throw new Error(
+      `フォントに入っていない文字があります: ${missing.join(' ')}\n` +
+        '`npm run ig:fonts` を実行してから、もう一度お試しください。'
+    )
+  }
 
   // public/ の中に一時HTMLを置き、画像とフォントを相対パスで読ませる（file:// で完結させるため）
   const shell = `<meta charset="utf-8" />

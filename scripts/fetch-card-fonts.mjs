@@ -16,7 +16,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { posts, SERIES_TAGLINE } from '../src/instagram9/posts.js'
+import { jpText, latinText } from '../src/instagram9/glyphs.js'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT_DIR = resolve(ROOT, 'public/instagram/fonts')
@@ -25,32 +25,12 @@ const OUT_DIR = resolve(ROOT, 'public/instagram/fonts')
 const UA =
   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 
-const range = (from, to) =>
-  Array.from({ length: to - from + 1 }, (_, i) => String.fromCodePoint(from + i)).join('')
-
-const ASCII = range(0x20, 0x7e)
-const HIRAGANA = range(0x3041, 0x309f)
-const KATAKANA = range(0x30a0, 0x30ff)
-const JP_PUNCT = '、。「」『』（）〜ー・…—－'
-const FULLWIDTH = range(0xff01, 0xff5e)
-
-/** 表紙に実際に出る文字を集める（本文キャプションは対象外） */
-function cardCharacters() {
-  const chunks = [SERIES_TAGLINE, 'BLOOM LINK', '0123456789']
-  for (const p of posts) {
-    chunks.push(p.no, p.category, ...p.headline)
-    if (p.sub) chunks.push(p.sub)
-    if (p.statValue) chunks.push(p.statValue, p.statUnit, p.statLabel)
-  }
-  return chunks.join('')
-}
-
-const uniq = str => [...new Set([...str])].sort().join('')
-
 const FAMILIES = [
   { family: 'Noto Serif JP', weights: [300], jp: true, slug: 'noto-serif-jp' },
   { family: 'Noto Sans JP', weights: [300, 400], jp: true, slug: 'noto-sans-jp' },
   { family: 'Cormorant Garamond', weights: [300, 400], jp: false, slug: 'cormorant-garamond' },
+  // 09の署名にだけ使う。英字数文字ぶんしか要らないので極小のサブセットで済む。
+  { family: 'Italianno', weights: [400], jp: false, slug: 'italianno' },
 ]
 
 async function get(url, asBuffer = false) {
@@ -62,13 +42,10 @@ async function get(url, asBuffer = false) {
 async function main() {
   await mkdir(OUT_DIR, { recursive: true })
 
-  const jpText = uniq(cardCharacters() + ASCII + HIRAGANA + KATAKANA + JP_PUNCT + FULLWIDTH)
-  const latinText = uniq(cardCharacters().replace(/[^\x20-\x7e]/g, '') + ASCII)
-
   const blocks = []
 
   for (const { family, weights, jp, slug } of FAMILIES) {
-    const text = jp ? jpText : latinText
+    const text = jp ? jpText() : latinText()
     const url =
       `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weights.join(';')}` +
       `&text=${encodeURIComponent(text)}&display=block`
