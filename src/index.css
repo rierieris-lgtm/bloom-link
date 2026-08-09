@@ -12,6 +12,23 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 日本語の折り返しを文節単位にする。
+   「BLOOM LINKのすべての土台になってい／ます。」のような
+   不自然な位置での改行を防ぐ。未対応ブラウザは既定動作に落ちるだけ。 */
+body {
+  word-break: auto-phrase;
+}
+
+/* 見出しは各行の長さが揃うように分配する */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* 本文は最終行に1語だけ残らないようにする */
+p, li {
+  text-wrap: pretty;
+}
+
 .font-serif {
   font-family: 'Cormorant Garamond', serif;
 }

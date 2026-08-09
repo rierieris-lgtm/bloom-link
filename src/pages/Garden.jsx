@@ -359,6 +359,32 @@ export default function BloomingGardenPage() {
               3ヶ月後、自分に合ったペースを選べます。
             </p>
           </div>
+
+          {/* Gardenの方へ ── Launch Labのご案内 */}
+          <div className="rounded mt-6 p-8 text-left"
+            style={{background:"#FDF7F3",border:"1px solid rgba(196,113,74,0.25)"}}>
+            <p style={{fontSize:"0.65rem",letterSpacing:"0.2em",color:"#C4714A",marginBottom:"0.6rem"}}>
+              GARDENの方へ
+            </p>
+            <p className="font-serif text-[#2B5F7A]" style={{fontSize:"1.15rem",fontWeight:300,marginBottom:"0.8rem"}}>
+              もう一歩、動いてみたくなったら。
+            </p>
+            <p style={{fontSize:"0.8rem",lineHeight:2,color:"#7A8E9A",marginBottom:"1.2rem"}}>
+              Gardenで自分の軸が見えてきたら、<strong style={{color:"#C4714A",fontWeight:500}}>＋¥6,500/月</strong>で
+              Launch Labにも参加できます（合計¥10,000/月）。<br />
+              挑戦を形にする、ビジネス実践コミュニティです。
+            </p>
+            <ul style={{fontSize:"0.78rem",lineHeight:2.2,color:"#7A8E9A",listStyle:"none",marginBottom:"1.4rem"}}>
+              <li>🎓 Rieの講座・日本語レッスンなどが<strong style={{color:"#2B5F7A",fontWeight:500}}>受講者限定の特別料金</strong>に</li>
+              <li>🤝 月2回のチームミーティングで、一人にならずに進める</li>
+              <li>⚡ 実際の仕事にチャレンジしながら、スキルと自信を育てる</li>
+            </ul>
+            <a href="#launch"
+              className="inline-block text-xs tracking-widest px-8 py-3 rounded-full transition-all hover:-translate-y-0.5"
+              style={{background:"#C4714A",color:"white"}}>
+              Launch Labを見てみる
+            </a>
+          </div>
         </div>
       </section>
 
