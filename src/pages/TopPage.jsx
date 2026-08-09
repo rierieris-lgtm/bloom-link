@@ -185,10 +185,13 @@ export default function TopPage() {
               日本語を、教えています。
             </h2>
             <p className="mt-4" style={{fontSize: "0.85rem", lineHeight: 2.2, color: "#7A8E9A"}}>
-              ウズベキスタンの日本語学校で、子どもたちに日本語を教えています。<br />
-              ひらがなを一文字ずつ、一緒に。
+              オンラインで、日本語のレッスンをしています。<br />
+              どこに住んでいても、画面をひらけばそこが教室になる。
             </p>
           </div>
+          <p className="text-center" style={{fontSize: "0.78rem", lineHeight: 2, color: "#7A8E9A", marginBottom: "1.5rem"}}>
+            ときには、現地へも。ウズベキスタンの日本語学校を訪ねたときの写真です。
+          </p>
           <div className="grid md:grid-cols-2 gap-4">
             {[
               {img: "/travel/uzbekistan-lesson.jpg", label: "ウズベキスタン｜ひらがなの練習"},
