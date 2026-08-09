@@ -77,6 +77,15 @@ export default function TopPage() {
                 color: "#2B5F7A",
               },
               {
+                name: "Launch Lab",
+                tag: "ビジネス実践コミュニティ",
+                desc: "挑戦を形にする場所。仲間と動きながら、自分の名前で小さく収益を作っていく。Blooming Gardenとセットでのご参加です。",
+                href: "/garden#launch",
+                price: "¥10,000/月〜",
+                icon: "🚀",
+                color: "#C4714A",
+              },
+              {
                 name: "Blooming Compass Program",
                 tag: "マンツーマン伴走",
                 desc: "自分の軸を育てる6ヶ月。現状把握から未来設定まで、Rieと一対一で深めていくプログラム。",
