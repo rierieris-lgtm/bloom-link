@@ -33,6 +33,7 @@ const LAUNCH_FEATURES = [
   { icon: "🧠", title: "ナレッジ共有", desc: "メンバーの知見を持ち寄り、チーム全体が育つ。" },
   { icon: "🌱", title: "Rieマインド共有", desc: "同じ方向を向いて働くための、仕事の哲学を共有。" },
   { icon: "🚀", title: "Business Programへの優先案内", desc: "本格的に収益を作りたくなったときの次のステップ。" },
+  { icon: "🎓", title: "講座・レッスンが受講者限定料金", desc: "Rieの各種講座や日本語レッスンなどを、メンバー限定の特別料金で受けられる。" },
 ];
 
 const FOR_WHO_GARDEN = [
