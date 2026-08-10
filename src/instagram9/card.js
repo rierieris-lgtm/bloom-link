@@ -64,7 +64,11 @@ export const CARD_CSS = `
   font-feature-settings: 'lnum' 1, 'onum' 0;
 }
 
-.ig-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: ${PHOTO_FILTER}; }
+.ig-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--focus, 50% 50%);
+  filter: ${PHOTO_FILTER};
+}
 
 /* 写真全面の型。背面に敷いて、文字はこの上のアイボリー面に置く */
 .ig-bleed { position: absolute; inset: 0; z-index: 0; }
@@ -176,8 +180,16 @@ const svg = paths =>
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-const img = (base, file, style = '') =>
-  `<img class="ig-photo" src="${base}/travel/${file}" style="${style}" alt="" />`
+/**
+ * 写真1枚。
+ *
+ * 縦長のスマホ写真を横長の枠に入れると、被写体が枠の外へ出てしまうことがある。
+ * focus（object-position）で、どこを残すかを投稿ごとに指定できるようにしている。
+ */
+const img = (base, file, { focus, style = '' } = {}) =>
+  `<img class="ig-photo" src="${base}/travel/${file}"${
+    focus ? ` style="--focus:${focus};${style}"` : style ? ` style="${style}"` : ''
+  } alt="" />`
 
 const head = p => `
     <div class="ig-head">
@@ -221,7 +233,7 @@ const VARIANTS = {
   /** アイボリー地に写真を額装する。余白そのものをデザインにする型。 */
   frame: (p, base) => ({
     mediaClass: 'ig-media--framed',
-    media: img(base, p.photos[0]),
+    media: img(base, p.photos[0], { focus: p.focus }),
   }),
 
   /** 写真なし。タイポグラフィだけで持たせる型。 */
@@ -230,7 +242,7 @@ const VARIANTS = {
   /** 写真全面。暗い加工はせず、明るいアイボリー面を上下に重ねて文字を置く。 */
   photoFull: (p, base) => ({
     behind: `
-    <div class="ig-bleed">${img(base, p.photos[0])}</div>
+    <div class="ig-bleed">${img(base, p.photos[0], { focus: p.focus })}</div>
     <div class="ig-veil ig-veil-top"></div>
     <div class="ig-veil ig-veil-top-fade"></div>`,
     veilBottom: 'fade',
@@ -239,7 +251,7 @@ const VARIANTS = {
   /** 左右いっぱいの写真の帯。額装（frame）との対比でリズムをつくる。 */
   split: (p, base) => ({
     mediaClass: 'ig-media--band',
-    media: img(base, p.photos[0]),
+    media: img(base, p.photos[0], { focus: p.focus }),
   }),
 
   /** 3地域を並べ、「世界へ広がっている」ことを1枚で見せる。 */
@@ -248,7 +260,7 @@ const VARIANTS = {
     media: `<div style="position:absolute;inset:0;display:flex;gap:3px">
         ${p.photos
           .slice(0, 3)
-          .map(f => `<div style="position:relative;flex:1">${img(base, f)}</div>`)
+          .map(f => `<div style="position:relative;flex:1">${img(base, f, { focus: p.focusBy?.[f] })}</div>`)
           .join('\n        ')}
       </div>`,
   }),
@@ -295,7 +307,7 @@ const VARIANTS = {
   /** 着地点。水平線の帯を浅くとり、下に大きく余白を残してコピーで閉じる。 */
   finale: (p, base) => ({
     mediaClass: 'ig-media--band',
-    media: `<div style="position:absolute;top:0;left:0;right:0;height:430px">${img(base, p.photos[0])}</div>`,
+    media: `<div style="position:absolute;top:0;left:0;right:0;height:430px">${img(base, p.photos[0], { focus: p.focus })}</div>`,
     goldHair: true,
   }),
 }

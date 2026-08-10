@@ -111,7 +111,8 @@ ${SERIES_TAGLINE}`,
     sub: '17日間で3カ国へ。それでも、仕事は止まらなかった。',
     headlineSize: 80,
     role: '働き方と世界。海外ノマド自慢にはしない。',
-    photoNote: 'バルセロナ。建築・街並み。人物が小さく入るとなお良い。',
+    // 写真全面の型は上半分しか見えないので、被写体が上寄りの写真を選ぶ
+    photoNote: 'バルセロナ。建築＋本人が画面の上寄りに入っている写真を選ぶ。',
     caption: `03｜働く場所を変えたら、世界が広がった。
 
 オンラインで仕事をつくるようになって、
@@ -264,12 +265,17 @@ ${SERIES_TAGLINE}`,
     no: '07',
     category: 'TRAVEL × WORK',
     variant: 'mosaic',
-    photos: ['hawaii.jpg', 'phiphi.jpg', 'malaysia.jpg'],
+    // 3枚組の列（約358×560）は縦長なので、スマホの縦写真がそのまま活きる
+    photos: ['uzbekistan-khiva.jpg', 'uzbekistan-market.jpg', 'hawaii.jpg'],
+    focusBy: {
+      'uzbekistan-khiva.jpg': '50% 78%',
+      'uzbekistan-market.jpg': '50% 62%',
+    },
     headline: ['旅を、', '消費で終わらせない。'],
     sub: '世界で得たものを、仕事と家族に戻していく。',
     headlineSize: 80,
     role: 'TRAVEL × WORK。キラキラした旅行アカウントにはしない。',
-    photoNote: '複数地域を並べる。マルタ・バルセロナ・ハワイは必ず候補に含める。',
+    photoNote: 'ウズベキスタン（路地・市場）とハワイ。縦長写真がそのまま使える型。',
     caption: `07｜旅を、消費で終わらせない。
 
 旅は、仕事から逃げるための時間ではありません。

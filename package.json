@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "ig:fonts": "node scripts/fetch-card-fonts.mjs",
-    "ig:render": "node scripts/render-instagram9.mjs"
+    "ig:render": "node scripts/render-instagram9.mjs",
+    "ig:photo": "node scripts/optimize-photos.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",
