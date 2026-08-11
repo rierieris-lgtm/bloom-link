@@ -20,6 +20,7 @@
 | 9枚を並べた確認用（物語の順） | `public/instagram/grid.png` |
 | 9枚を並べた確認用（実際の並び） | `public/instagram/grid-instagram.png` |
 | 表紙用フォント（サブセット） | `public/instagram/fonts/` |
+| 他ツールへ渡す一式 | `docs/instagram-9-引っ越しセット.md` |
 
 デザインの定義は `card.js` の1か所だけ。
 確認画面と書き出しスクリプトは、どちらも同じファイルを読んでいる。
