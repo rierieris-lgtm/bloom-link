@@ -1,7 +1,7 @@
 /**
  * 写真をサイトに載せられるサイズに整える。
  *
- *   node scripts/optimize-photos.mjs [--trim] <入力> <出力名> [<入力> <出力名> ...]
+ *   node scripts/optimize-photos.mjs [--trim] [--crop=上%,下%] <入力> <出力名> [...]
  *
  * 例:
  *   node scripts/optimize-photos.mjs \
@@ -10,6 +10,10 @@
  * --trim は上下左右の黒帯（レターボックス）を落とす。
  * 画面録画や動画から書き出した画像には黒帯が付いていることがあり、
  * そのまま表紙に入れると「暗くしない」というルールに反してしまう。
+ *
+ * --crop=35,100 は縦方向を上から35%〜100%だけ残す。
+ * 写真全面の型は下側が明るい帯で覆われるので、被写体が写真の下寄りにあると
+ * 隠れてしまう。あらかじめ上を切り落として被写体を上へ持ち上げるために使う。
  *
  * スマホから上げた写真はそのままだと5〜8MBあり、リポジトリとサイトが重くなる。
  * 表紙は1080×1350なので、長辺2000pxあれば引き伸ばしにはならない。
@@ -45,7 +49,18 @@ function loadPlaywright() {
 async function main() {
   const argv = process.argv.slice(2)
   const trim = argv.includes('--trim')
-  const args = argv.filter(a => a !== '--trim')
+
+  const cropArg = argv.find(a => a.startsWith('--crop='))
+  let crop = null
+  if (cropArg) {
+    const [top, bottom] = cropArg.slice('--crop='.length).split(',').map(Number)
+    if (!Number.isFinite(top) || !Number.isFinite(bottom) || top >= bottom) {
+      throw new Error('--crop=上%,下% の形式で、上 < 下 になるように指定してください。')
+    }
+    crop = { top: top / 100, bottom: bottom / 100 }
+  }
+
+  const args = argv.filter(a => a !== '--trim' && !a.startsWith('--crop='))
   if (!args.length || args.length % 2 !== 0) {
     throw new Error('入力ファイルと出力名を対で渡してください。')
   }
@@ -67,7 +82,7 @@ async function main() {
       const dataUrl = `data:${mime};base64,${bytes.toString('base64')}`
 
       const result = await page.evaluate(
-        async ({ dataUrl, maxEdge, quality, trim }) => {
+        async ({ dataUrl, maxEdge, quality, trim, crop }) => {
           const img = new Image()
           img.src = dataUrl
           await img.decode()
@@ -127,6 +142,13 @@ async function main() {
             sh = bottom - top + 1
           }
 
+          if (crop) {
+            const y0 = sy + Math.round(sh * crop.top)
+            const y1 = sy + Math.round(sh * crop.bottom)
+            sy = y0
+            sh = y1 - y0
+          }
+
           const scale = Math.min(1, maxEdge / Math.max(sw, sh))
           const outW = Math.round(sw * scale)
           const outH = Math.round(sh * scale)
@@ -145,7 +167,7 @@ async function main() {
             jpeg: canvas.toDataURL('image/jpeg', quality).split(',')[1],
           }
         },
-        { dataUrl, maxEdge: MAX_EDGE, quality: QUALITY, trim }
+        { dataUrl, maxEdge: MAX_EDGE, quality: QUALITY, trim, crop }
       )
 
       const out = Buffer.from(result.jpeg, 'base64')

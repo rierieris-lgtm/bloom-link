@@ -14,32 +14,34 @@ export const SERIES_TAGLINE = '仕事を軽くして、人生を広げる。'
 /**
  * レイアウトの型（9枚を同じテンプレートにしないためのリズム設計）
  *
- *   ivory      … 写真なし。アイボリー地＋タイポグラフィ
- *   frame      … アイボリー地に写真を額装（上部インセット）
- *   photoFull  … 写真全面＋下部アイボリーパネル（暗いフィルターは使わない）
- *   split      … 上部に写真の帯、下部アイボリー
- *   mosaic     … 写真3枚を並べ、世界の広がりを視覚化
- *   stat       … 数字を主役にしたタイポグラフィ
- *   finale     … 写真の帯＋大きめのコピー＋01-09インデックス
+ *   bleed        … 写真を全面に置き、下に明るいアイボリーの帯を立ち上げる
+ *   bleedMosaic  … 写真3枚を全面に並べ、世界の広がりを1枚で見せる
+ *   ivory        … 写真なし。アイボリー地＋タイポグラフィ
+ *   steps        … AIに渡す前に決める4つの問いを縦に並べる
+ *   flow         … 構造を変える4手を線画アイコンで横に並べる
+ *   stat         … 数字を主役にしたタイポグラフィ
  *
- * グリッド上の並び（重複する型が縦横で隣り合わないよう配置）
+ * 写真は暗くしない。白文字を写真に直接置く案は採らない。
+ * 実際の写真で試すと、暗くしないと読めず、暗くすると写真の光が死ぬ。
  *
- *   frame   ivory   photoFull
- *   ivory   split   frame
- *   mosaic  stat    finale
+ * グリッド上の並び
+ *
+ *   bleed   ivory   bleed
+ *   flow    steps   bleed
+ *   mosaic  stat    bleed
  */
 
 export const posts = [
   {
     no: '01',
     category: 'LIFE',
-    variant: 'frame',
+    variant: 'bleed',
     photos: ['rie-book.jpg'],
-    // 縦位置の写真を横長の額装に入れるので、顔が枠に収まる位置へ寄せる
-    focus: '50% 20%',
+    // 写真全面。下の帯に隠れない位置へ顔を寄せる
+    focus: '50% 22%',
     headline: ['全部、', '大切だった。'],
     sub: '妻。母。娘。会社員22年。店の経営。',
-    headlineSize: 92,
+    headlineSize: 80,
     role: '物語の入口。いきなりAIやサービスの話をしない。',
     photoNote: '普段着で、日常の場面。格式より生活が写っているものを選ぶ。',
     caption: `01｜全部、大切だった。
@@ -117,11 +119,12 @@ ${SERIES_TAGLINE}`,
   {
     no: '03',
     category: 'GLOBAL',
-    variant: 'photoFull',
+    variant: 'bleed',
     photos: ['barcelona.jpg'],
+    focus: '50% 32%',
     headline: ['働く場所を変えたら、', '世界が広がった。'],
     sub: '17日間で3カ国へ。それでも、仕事は止まらなかった。',
-    headlineSize: 80,
+    headlineSize: 76,
     role: '働き方と世界。海外ノマド自慢にはしない。',
     // 写真全面の型は上半分しか見えないので、被写体が上寄りの写真を選ぶ
     photoNote: 'バルセロナ。建築＋本人が画面の上寄りに入っている写真を選ぶ。',
@@ -237,13 +240,13 @@ ${SERIES_TAGLINE}`,
   {
     no: '06',
     category: 'PEOPLE',
-    variant: 'frame',
-    photos: ['pergola.jpg'],
-    // 縦位置の写真を横長の額装に入れるので、本人が枠に収まる位置へ寄せる
-    focus: '50% 35%',
+    variant: 'bleed',
+    // 写真全面の型は下側が帯で覆われるため、本人が上へ来るよう切り出した版を使う
+    photos: ['pergola-crop.jpg'],
+    focus: '50% 50%',
     headline: ['AI時代だからこそ、', '人。'],
     sub: '意図を理解し、仕組みを動かせる人へ。',
-    headlineSize: 88,
+    headlineSize: 80,
     role: '人とチーム。AIですべてを置き換える思想ではない。',
     photoNote: 'ぶどう棚の小径。任せた先にある「余裕」の絵として使っている。',
     caption: `06｜AI時代だからこそ、人。
@@ -289,7 +292,7 @@ ${SERIES_TAGLINE}`,
   {
     no: '07',
     category: 'TRAVEL × WORK',
-    variant: 'mosaic',
+    variant: 'bleedMosaic',
     // 3枚組の列（約358×560）は縦長なので、スマホの縦写真がそのまま活きる
     photos: ['uzbekistan-khiva.jpg', 'uzbekistan-market.jpg', 'hawaii.jpg'],
     focusBy: {
@@ -298,7 +301,7 @@ ${SERIES_TAGLINE}`,
     },
     headline: ['旅を、', '消費で終わらせない。'],
     sub: '世界で得たものを、仕事と家族に戻していく。',
-    headlineSize: 80,
+    headlineSize: 76,
     role: 'TRAVEL × WORK。キラキラした旅行アカウントにはしない。',
     photoNote: 'ウズベキスタン（路地・市場）とハワイ。縦長写真がそのまま使える型。',
     caption: `07｜旅を、消費で終わらせない。
@@ -377,8 +380,9 @@ ${SERIES_TAGLINE}`,
   {
     no: '09',
     category: 'VISION',
-    variant: 'finale',
+    variant: 'bleed',
     photos: ['malta.jpg'],
+    focus: '50% 40%',
     headline: ['仕事を軽くして、', '人生を広げる。'],
     sub: 'AI。仕組み。チーム。そして、世界へ。',
     signature: 'Rie',

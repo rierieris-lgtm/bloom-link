@@ -38,8 +38,8 @@ export const TOKENS = {
 /** 写真は暗くしない。わずかに明るさと彩度を整えるだけ。 */
 const PHOTO_FILTER = 'saturate(1.04) brightness(1.03)'
 
-/** ヘッダー（番号＋罫線＋カテゴリー）の高さ。 */
-const HEAD_H = 100
+/** 罫線＋カテゴリーの塊と、コピーとの間隔。 */
+const LABEL_GAP = 30
 const MEDIA_TOP = 46
 const MEDIA_BOTTOM = 52
 
@@ -70,22 +70,18 @@ export const CARD_CSS = `
   filter: ${PHOTO_FILTER};
 }
 
-/* 写真全面の型。背面に敷いて、文字はこの上のアイボリー面に置く */
+/* 写真全面の型。背面に敷き、文字は下の明るい帯の上に置く */
 .ig-bleed { position: absolute; inset: 0; z-index: 0; }
+.ig-bleed--cols { display: flex; gap: 3px; }
+.ig-bleed--cols > div { position: relative; flex: 1; }
 
 /*
  * 文字を載せるための面。暗いフィルター＋白文字ではなく、
  * 明るいアイボリーを重ねて紺文字を読ませる（絶対ルール7）。
  */
 .ig-veil { position: absolute; left: 0; right: 0; z-index: 1; pointer-events: none; }
-/* ヘッダーがちょうど収まる高さ。ここを削るとカテゴリー名が写真に埋もれる。 */
-.ig-veil-top { top: 0; height: 212px; background: ${TOKENS.ivory}; }
-.ig-veil-top-fade {
-  top: 212px; height: 130px;
-  background: linear-gradient(to bottom, ${TOKENS.ivory} 0%, rgba(250,248,243,0) 100%);
-}
 .ig-veil-bottom { bottom: 0; background: ${TOKENS.ivory}; }
-.ig-veil-bottom-fade { height: 150px; background: linear-gradient(to top, ${TOKENS.ivory} 0%, rgba(250,248,243,0) 100%); }
+.ig-veil-bottom-fade { height: 110px; background: linear-gradient(to top, ${TOKENS.ivory} 0%, rgba(250,248,243,0) 100%); }
 
 .ig-stack {
   position: relative; z-index: 2;
@@ -93,16 +89,17 @@ export const CARD_CSS = `
   height: 100%; padding: ${TOKENS.marginY}px ${TOKENS.marginX}px;
 }
 
-.ig-head { flex: none; height: ${HEAD_H}px; }
-.ig-no { font-weight: 300; font-size: 34px; line-height: 1; letter-spacing: 0.18em; color: ${TOKENS.navy}; }
-.ig-rule { width: 44px; height: 1px; background: ${TOKENS.gold}; margin: 22px 0 18px; }
+/*
+ * 罫線＋カテゴリー。写真を全面に使うため、上端ではなくコピーの直上に置く。
+ * 上端に置くと写真の上に文字が乗り、読ませるために写真を暗くする必要が出てしまう。
+ */
+.ig-label { flex: none; margin-bottom: ${LABEL_GAP}px; }
+.ig-no { font-weight: 300; font-size: 34px; line-height: 1; letter-spacing: 0.18em; color: ${TOKENS.navy}; margin-bottom: 22px; }
+.ig-rule { width: 44px; height: 1px; background: ${TOKENS.gold}; margin-bottom: 18px; }
 .ig-cat { font-size: 17px; font-weight: 400; letter-spacing: 0.34em; color: ${TOKENS.faint}; }
 
 /* 写真・数字・余白が入る可変の領域。コピーが長い回は自動でここが縮む */
 .ig-media { position: relative; flex: 1 1 auto; min-height: 0; margin: ${MEDIA_TOP}px 0 ${MEDIA_BOTTOM}px; }
-.ig-media--framed { overflow: hidden; }
-/* 左右いっぱいの帯。ヘッダーの下から始めるので、番号が写真に隠れない */
-.ig-media--band { overflow: hidden; margin: ${MEDIA_TOP}px -${TOKENS.marginX}px ${MEDIA_BOTTOM}px; }
 
 .ig-body { flex: none; }
 .ig-headline {
@@ -153,11 +150,6 @@ export const CARD_CSS = `
 .ig-flow-arrow { flex: none; width: 34px; margin-top: 22px; color: ${TOKENS.gold}; }
 .ig-flow-arrow svg { width: 100%; display: block; }
 
-/* 09 — 01から09までを閉じるインデックス */
-.ig-index { display: flex; gap: 20px; }
-.ig-index span { font-weight: 300; font-size: 20px; letter-spacing: 0.12em; color: rgba(43,95,122,0.3); }
-.ig-index span.on { color: ${TOKENS.gold}; }
-
 /* 09 — 物語を自分の名前で閉じる */
 .ig-sign {
   font-family: 'Italianno', 'Cormorant Garamond', cursive;
@@ -192,17 +184,16 @@ const img = (base, file, { focus, style = '' } = {}) =>
   } alt="" />`
 
 /**
- * 上左のヘッダー。
+ * 罫線＋カテゴリー。コピーの直上に置く。
  *
- * numbers を false にすると番号を外し、カテゴリーだけにする。
+ * numbers を true にすると 01〜09 の番号も出る。既定は false。
  * Instagramのプロフィールは新しい投稿が左上に来るため、01から順に投稿すると
- * グリッド上では 09 08 07 / 06 05 04 / 03 02 01 と逆順に並ぶ。
- * 番号を見せるかどうかは、その並びを見てから決められるようにしてある。
+ * グリッド上では番号が逆順に並んでしまうので、既定では出さない。
  */
-const head = (p, numbers) => `
-    <div class="ig-head">
+const label = (p, numbers) => `
+    <div class="ig-label">
       ${numbers ? `<div class="ig-no ig-latin">${esc(p.no)}</div>` : ''}
-      <div class="ig-rule"${numbers ? '' : ' style="margin-top:0"'}></div>
+      <div class="ig-rule"></div>
       <div class="ig-cat">${esc(p.category)}</div>
     </div>`
 
@@ -218,19 +209,16 @@ const body = p => `
       ${p.sub ? `<div class="ig-sub">${esc(p.sub)}</div>` : ''}
     </div>`
 
-const foot = (p, numbers) =>
-  p.variant === 'finale'
-    ? // 09はコピー自体がシリーズの一文なので、フッターで繰り返さない。
-      // 左に01-09のインデックスで物語を閉じ、右は屋号ではなく本人の署名にする。
-      `<div class="ig-foot" style="align-items:flex-end">
-      ${
-        numbers
-          ? `<div class="ig-index ig-latin">${['01', '02', '03', '04', '05', '06', '07', '08', '09']
-              .map(n => `<span class="${n === p.no ? 'on' : ''}">${n}</span>`)
-              .join('')}</div>`
-          : `<div class="ig-foot-tag">仕事を軽くして、人生を広げる。</div>`
-      }
-      ${p.signature ? `<div class="ig-sign">${esc(p.signature)}</div>` : ''}
+/**
+ * フッター。
+ *
+ * 署名がある回（09）は、コピー自体がシリーズの一文なので繰り返さない。
+ * 屋号の代わりに本人の署名を置いて物語を閉じる。
+ */
+const foot = p =>
+  p.signature
+    ? `<div class="ig-foot" style="justify-content:flex-end">
+      <div class="ig-sign">${esc(p.signature)}</div>
     </div>`
     : `<div class="ig-foot">
       <div class="ig-foot-tag">仕事を軽くして、人生を広げる。</div>
@@ -238,41 +226,44 @@ const foot = (p, numbers) =>
     </div>`
 
 /**
- * 各変型は「背面レイヤー」と「メディア領域の中身」だけを返す。
- * ヘッダー・コピー・フッターの位置は全変型で共通。
+ * 各変型は「背面レイヤー」と「可変領域の中身」だけを返す。
+ * 罫線＋カテゴリー・コピー・フッターの位置は全変型で共通。
  */
 const VARIANTS = {
-  /** アイボリー地に写真を額装する。余白そのものをデザインにする型。 */
-  frame: (p, base) => ({
-    mediaClass: 'ig-media--framed',
-    media: img(base, p.photos[0], { focus: p.focus }),
+  /**
+   * 写真全面。写真は一切暗くせず、下に明るい帯を置いてその上に紺文字を読ませる。
+   *
+   * 白文字を写真に直接置く案は採らない。実際の写真で試すと、
+   * 暗くしないと読めず、暗くすると写真の光が死ぬ。
+   * 明るい帯なら、どの写真でも読めて色もそのまま残る。
+   */
+  bleed: (p, base, photoH) => ({
+    behind: `<div class="ig-bleed" style="bottom:auto;height:${photoH}px">${img(base, p.photos[0], { focus: p.focus })}</div>`,
+    band: true,
+  }),
+
+  /** 写真全面の3枚組。地域を並べて「世界へ広がっている」ことを1枚で見せる。 */
+  bleedMosaic: (p, base, photoH) => ({
+    behind: `<div class="ig-bleed ig-bleed--cols" style="bottom:auto;height:${photoH}px">
+      ${p.photos
+        .slice(0, 3)
+        .map(f => `<div>${img(base, f, { focus: p.focusBy?.[f] })}</div>`)
+        .join('\n      ')}
+    </div>`,
+    band: true,
   }),
 
   /** 写真なし。タイポグラフィだけで持たせる型。 */
   ivory: () => ({ media: '<div class="ig-hair"></div>' }),
 
-  /** 写真全面。暗い加工はせず、明るいアイボリー面を上下に重ねて文字を置く。 */
-  photoFull: (p, base) => ({
-    behind: `
-    <div class="ig-bleed">${img(base, p.photos[0], { focus: p.focus })}</div>
-    <div class="ig-veil ig-veil-top"></div>
-    <div class="ig-veil ig-veil-top-fade"></div>`,
-    veilBottom: 'fade',
-  }),
-
-  /** 左右いっぱいの写真の帯。額装（frame）との対比でリズムをつくる。 */
-  split: (p, base) => ({
-    mediaClass: 'ig-media--band',
-    media: img(base, p.photos[0], { focus: p.focus }),
-  }),
-
-  /** 3地域を並べ、「世界へ広がっている」ことを1枚で見せる。 */
-  mosaic: (p, base) => ({
-    mediaClass: 'ig-media--band',
-    media: `<div style="position:absolute;inset:0;display:flex;gap:3px">
-        ${p.photos
-          .slice(0, 3)
-          .map(f => `<div style="position:relative;flex:1">${img(base, f, { focus: p.focusBy?.[f] })}</div>`)
+  /** AIに渡す前に決める4つ。写真を使わず、考える順序そのものを見せる。 */
+  steps: p => ({
+    media: `<div class="ig-steps">
+        ${p.steps
+          .map(
+            (s, i) =>
+              `<div class="ig-step"><span class="ig-step-no ig-latin">0${i + 1}</span><span>${esc(s)}</span></div>`
+          )
           .join('\n        ')}
       </div>`,
   }),
@@ -293,18 +284,6 @@ const VARIANTS = {
       </div>`,
   }),
 
-  /** AIに渡す前に決める4つ。写真を使わず、考える順序そのものを見せる。 */
-  steps: p => ({
-    media: `<div class="ig-steps">
-        ${p.steps
-          .map(
-            (s, i) =>
-              `<div class="ig-step"><span class="ig-step-no ig-latin">0${i + 1}</span><span>${esc(s)}</span></div>`
-          )
-          .join('\n        ')}
-      </div>`,
-  }),
-
   /** 数字を主役にする。ただし結論のコピーを必ず下に置く。 */
   stat: p => ({
     media: `<div class="ig-stat">
@@ -316,16 +295,11 @@ const VARIANTS = {
       </div>`,
   }),
 
-  /** 着地点。水平線の帯を浅くとり、下に大きく余白を残してコピーで閉じる。 */
-  finale: (p, base) => ({
-    mediaClass: 'ig-media--band',
-    media: `<div style="position:absolute;top:0;left:0;right:0;height:430px">${img(base, p.photos[0], { focus: p.focus })}</div>`,
-    goldHair: true,
-  }),
 }
 
 /**
  * 表紙1枚分のHTMLを返す。
+ *
  * @param {object} post posts.js の1件
  * @param {object} [opts]
  * @param {string} [opts.assetBase] 画像のベースパス（プレビューは '' / 書き出しは '.'）
@@ -333,7 +307,6 @@ const VARIANTS = {
  *   Instagramのプロフィールは新しい投稿が左上に来るので、01から順に投稿すると
  *   グリッドでは 09 08 07 / 06 05 04 / 03 02 01 と番号が逆から並んでしまう。
  *   順番はキャプション冒頭の「01｜」で伝えることにして、表紙からは外した。
- *   戻したいときは true を渡す。
  */
 export function cardHTML(post, opts = {}) {
   const base = opts.assetBase ?? ''
@@ -341,30 +314,31 @@ export function cardHTML(post, opts = {}) {
   const build = VARIANTS[post.variant]
   if (!build) throw new Error(`unknown variant: ${post.variant}`)
 
-  const v = build(post, base)
+  // 写真全面の型は、文字が乗る分だけアイボリーの帯を立ち上げる。
+  // 行数から高さを出すので、コピーを増減しても文字が写真に埋もれない。
+  const headlineH = post.headline.length * post.headlineSize * 1.5
+  const subH = post.sub ? 28 + 25 * 1.9 : 0
+  const labelH = (numbers ? 34 + 22 : 0) + 1 + 18 + 24 + LABEL_GAP
+  const footH = 60 + 24
+  const bandH = Math.round(TOKENS.marginY + footH + subH + headlineH + labelH + 34)
 
-  // 写真全面の型は、下のコピーの分だけアイボリー面を立ち上げて読ませる。
-  // 行数から必要な高さを出すので、コピーを増減しても文字が写真に埋もれない。
-  const bodyH =
-    post.headline.length * post.headlineSize * 1.5 + (post.sub ? 28 + 25 * 1.9 : 0) + 44 + 24
-  const veilH = Math.round(bodyH + TOKENS.marginY + 40)
+  // 写真は帯の上端までを埋める高さで置く。キャンバス全面にすると、
+  // 横位置の写真が上下で大きく切れ、拡大率も上がってしまう。
+  const v = build(post, base, CANVAS.h - bandH)
 
   return `<div class="ig-card" data-no="${esc(post.no)}">
     ${v.behind ?? ''}
     ${
-      v.veilBottom === 'fade'
-        ? `<div class="ig-veil ig-veil-bottom" style="height:${veilH}px"></div>
-    <div class="ig-veil ig-veil-bottom-fade" style="bottom:${veilH}px"></div>`
+      v.band
+        ? `<div class="ig-veil ig-veil-bottom" style="height:${bandH}px"></div>
+    <div class="ig-veil ig-veil-bottom-fade" style="bottom:${bandH}px"></div>`
         : ''
     }
     <div class="ig-stack">
-      ${head(post, numbers)}
-      <div class="ig-media ${v.mediaClass ?? ''}">
-        ${v.media ?? ''}
-        ${v.goldHair ? `<div class="ig-hair" style="left:${TOKENS.marginX}px;background:${TOKENS.gold}"></div>` : ''}
-      </div>
+      <div class="ig-media ${v.mediaClass ?? ''}">${v.media ?? ''}</div>
+      ${label(post, numbers)}
       ${body(post)}
-      ${foot(post, numbers)}
+      ${foot(post)}
     </div>
   </div>`
 }
