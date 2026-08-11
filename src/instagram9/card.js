@@ -82,11 +82,26 @@ export const CARD_CSS = `
 .ig-veil { position: absolute; left: 0; right: 0; z-index: 1; pointer-events: none; }
 .ig-veil-bottom { bottom: 0; background: ${TOKENS.ivory}; }
 .ig-veil-bottom-fade { height: 110px; background: linear-gradient(to top, ${TOKENS.ivory} 0%, rgba(250,248,243,0) 100%); }
+.ig-veil-top { top: 0; background: ${TOKENS.ivory}; }
+.ig-veil-top-fade { height: 110px; background: linear-gradient(to bottom, ${TOKENS.ivory} 0%, rgba(250,248,243,0) 100%); }
 
 .ig-stack {
   position: relative; z-index: 2;
   display: flex; flex-direction: column;
   height: 100%; padding: ${TOKENS.marginY}px ${TOKENS.marginX}px;
+}
+/* 帯が上にある型。文字を先に置き、余った下を写真に渡す */
+.ig-stack--top { justify-content: flex-start; }
+
+/*
+ * 文字を浮かぶ箱に入れる型。写真が箱の左右と下にも残るので、
+ * 帯の型と並べたときにリズムが出る。
+ */
+.ig-boxed {
+  position: absolute; z-index: 2;
+  left: ${TOKENS.marginX}px; right: ${TOKENS.marginX}px; bottom: ${TOKENS.marginY}px;
+  background: ${TOKENS.ivory};
+  padding: 56px 54px 50px;
 }
 
 /*
@@ -130,16 +145,6 @@ export const CARD_CSS = `
 
 /* 02・04 — 写真を使わない回の、控えめな区切り */
 .ig-hair { position: absolute; left: 0; bottom: 0; width: 120px; height: 1px; background: ${TOKENS.line}; }
-
-/* 05 — AIに渡す前に決める5つ。写真ではなく、順序そのものを見せる */
-.ig-steps { position: absolute; left: 0; right: 0; bottom: 0; }
-.ig-step {
-  display: flex; align-items: baseline; gap: 22px;
-  padding: 19px 0; border-top: 1px solid ${TOKENS.line};
-  font-size: 27px; font-weight: 300; letter-spacing: 0.04em; color: ${TOKENS.charcoal};
-}
-.ig-step:last-child { border-bottom: 1px solid ${TOKENS.line}; }
-.ig-step-no { font-weight: 400; font-size: 19px; letter-spacing: 0.12em; color: ${TOKENS.gold}; }
 
 /* 04 — 構造を変える4手。順番そのものを図で見せる */
 .ig-flow { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-start; }
@@ -238,13 +243,13 @@ const VARIANTS = {
    * 明るい帯なら、どの写真でも読めて色もそのまま残る。
    */
   bleed: (p, base, photoH) => ({
-    behind: `<div class="ig-bleed" style="bottom:auto;height:${photoH}px">${img(base, p.photos[0], { focus: p.focus })}</div>`,
+    behind: `<div class="ig-bleed" style="${p.place === 'top' ? 'top:auto' : 'bottom:auto'};height:${photoH}px">${img(base, p.photos[0], { focus: p.focus })}</div>`,
     band: true,
   }),
 
   /** 写真全面の3枚組。地域を並べて「世界へ広がっている」ことを1枚で見せる。 */
   bleedMosaic: (p, base, photoH) => ({
-    behind: `<div class="ig-bleed ig-bleed--cols" style="bottom:auto;height:${photoH}px">
+    behind: `<div class="ig-bleed ig-bleed--cols" style="${p.place === 'top' ? 'top:auto' : 'bottom:auto'};height:${photoH}px">
       ${p.photos
         .slice(0, 3)
         .map(f => `<div>${img(base, f, { focus: p.focusBy?.[f] })}</div>`)
@@ -255,18 +260,6 @@ const VARIANTS = {
 
   /** 写真なし。タイポグラフィだけで持たせる型。 */
   ivory: () => ({ media: '<div class="ig-hair"></div>' }),
-
-  /** AIに渡す前に決める4つ。写真を使わず、考える順序そのものを見せる。 */
-  steps: p => ({
-    media: `<div class="ig-steps">
-        ${p.steps
-          .map(
-            (s, i) =>
-              `<div class="ig-step"><span class="ig-step-no ig-latin">0${i + 1}</span><span>${esc(s)}</span></div>`
-          )
-          .join('\n        ')}
-      </div>`,
-  }),
 
   /** 構造を変える4手。05の「問い」に対して、こちらは「動作」を横並びで見せる。 */
   flow: p => ({
@@ -314,31 +307,51 @@ export function cardHTML(post, opts = {}) {
   const build = VARIANTS[post.variant]
   if (!build) throw new Error(`unknown variant: ${post.variant}`)
 
-  // 写真全面の型は、文字が乗る分だけアイボリーの帯を立ち上げる。
-  // 行数から高さを出すので、コピーを増減しても文字が写真に埋もれない。
+  // 文字が占める高さ。行数から出すので、コピーを増減しても写真に埋もれない。
   const headlineH = post.headline.length * post.headlineSize * 1.5
   const subH = post.sub ? 28 + 25 * 1.9 : 0
   const labelH = (numbers ? 34 + 22 : 0) + 1 + 18 + 24 + LABEL_GAP
   const footH = 60 + 24
   const bandH = Math.round(TOKENS.marginY + footH + subH + headlineH + labelH + 34)
 
-  // 写真は帯の上端までを埋める高さで置く。キャンバス全面にすると、
+  /**
+   * 文字をどこに置くか。写真の被写体がどこにいるかで選ぶ。
+   *   bottom … 下に帯（被写体が上寄りの写真）
+   *   top    … 上に帯（被写体が下寄りの写真）
+   *   box    … 浮かぶ箱（縦位置で余白のある写真）
+   */
+  const place = post.place ?? 'bottom'
+
+  // 写真は帯の外側だけを埋める高さで置く。キャンバス全面にすると、
   // 横位置の写真が上下で大きく切れ、拡大率も上がってしまう。
-  const v = build(post, base, CANVAS.h - bandH)
+  const photoH = place === 'box' ? CANVAS.h : CANVAS.h - bandH
+  const v = build(post, base, photoH)
+
+  const content = `${label(post, numbers)}
+      ${body(post)}
+      ${foot(post)}`
+
+  if (place === 'box') {
+    return `<div class="ig-card" data-no="${esc(post.no)}">
+    ${v.behind ?? ''}
+    <div class="ig-boxed">${content}</div>
+  </div>`
+  }
+
+  const veil =
+    place === 'top'
+      ? `<div class="ig-veil ig-veil-top" style="height:${bandH}px"></div>
+    <div class="ig-veil ig-veil-top-fade" style="top:${bandH}px"></div>`
+      : `<div class="ig-veil ig-veil-bottom" style="height:${bandH}px"></div>
+    <div class="ig-veil ig-veil-bottom-fade" style="bottom:${bandH}px"></div>`
+
+  const media = `<div class="ig-media">${v.media ?? ''}</div>`
 
   return `<div class="ig-card" data-no="${esc(post.no)}">
     ${v.behind ?? ''}
-    ${
-      v.band
-        ? `<div class="ig-veil ig-veil-bottom" style="height:${bandH}px"></div>
-    <div class="ig-veil ig-veil-bottom-fade" style="bottom:${bandH}px"></div>`
-        : ''
-    }
-    <div class="ig-stack">
-      <div class="ig-media ${v.mediaClass ?? ''}">${v.media ?? ''}</div>
-      ${label(post, numbers)}
-      ${body(post)}
-      ${foot(post)}
+    ${v.band ? veil : ''}
+    <div class="ig-stack${place === 'top' ? ' ig-stack--top' : ''}">
+      ${place === 'top' ? `${content}\n      ${media}` : `${media}\n      ${content}`}
     </div>
   </div>`
 }

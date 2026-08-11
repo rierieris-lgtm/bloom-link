@@ -12,23 +12,28 @@
 export const SERIES_TAGLINE = '仕事を軽くして、人生を広げる。'
 
 /**
- * レイアウトの型（9枚を同じテンプレートにしないためのリズム設計）
+ * レイアウトの型と、文字の置き場所
  *
- *   bleed        … 写真を全面に置き、下に明るいアイボリーの帯を立ち上げる
+ * 型（variant）
+ *   bleed        … 写真を全面に置き、明るいアイボリーの面に文字を置く
  *   bleedMosaic  … 写真3枚を全面に並べ、世界の広がりを1枚で見せる
  *   ivory        … 写真なし。アイボリー地＋タイポグラフィ
- *   steps        … AIに渡す前に決める4つの問いを縦に並べる
  *   flow         … 構造を変える4手を線画アイコンで横に並べる
  *   stat         … 数字を主役にしたタイポグラフィ
+ *
+ * 置き場所（place）— 同じ型でも印象が変わるので、9枚のリズムをここでつくる
+ *   bottom … 下に帯。被写体が写真の上寄りにあるとき
+ *   top    … 上に帯。被写体が下寄りのとき／上部に隠したいものがあるとき
+ *   box    … 浮かぶ箱。写真が箱の四方に残るので、雑誌のページのように見える
  *
  * 写真は暗くしない。白文字を写真に直接置く案は採らない。
  * 実際の写真で試すと、暗くしないと読めず、暗くすると写真の光が死ぬ。
  *
- * グリッド上の並び
+ * グリッド上の並び（物語の順）
  *
- *   bleed   ivory   bleed
- *   flow    steps   bleed
- *   mosaic  stat    bleed
+ *   01 下帯    02 文字    03 下帯
+ *   04 図      05 上帯    06 箱
+ *   07 上帯3枚 08 数字    09 下帯
  */
 
 export const posts = [
@@ -37,7 +42,7 @@ export const posts = [
     category: 'LIFE',
     variant: 'bleed',
     photos: ['rie-book.jpg'],
-    // 写真全面。下の帯に隠れない位置へ顔を寄せる
+    place: 'bottom',
     focus: '50% 22%',
     headline: ['全部、', '大切だった。'],
     sub: '妻。母。娘。会社員22年。店の経営。',
@@ -121,6 +126,7 @@ ${SERIES_TAGLINE}`,
     category: 'GLOBAL',
     variant: 'bleed',
     photos: ['barcelona.jpg'],
+    place: 'bottom',
     focus: '50% 32%',
     headline: ['働く場所を変えたら、', '世界が広がった。'],
     sub: '17日間で3カ国へ。それでも、仕事は止まらなかった。',
@@ -200,15 +206,16 @@ ${SERIES_TAGLINE}`,
   {
     no: '05',
     category: 'AI & SYSTEM',
-    variant: 'steps',
-    photos: [],
+    variant: 'bleed',
+    photos: ['desk-work.jpg'],
+    // 上に帯。背景のボトル棚が文字で隠れ、手元とキーボードが残る。
+    place: 'top',
+    focus: '50% 72%',
     headline: ['AIを使う前に、', 'やることがある。'],
     sub: 'AIは目的ではなく、余白をつくるための手段。',
-    // 「やめる」は04の担当なので、こちらは残すものの配分だけを問う
-    steps: ['何を残すのか', '何をAIに任せるのか', '何を人に任せるのか', '何を自分がやるのか'],
     headlineSize: 84,
     role: 'AI・業務改善・仕組み。AIコンサルアカウントのように見せない。',
-    photoNote: '写真なし。ツールではなく「決める順序」を見せるほうがこの回の主旨に合う。',
+    photoNote: '手元とキーボード。決める4つはキャプションに置き、表紙は仕事の場面にする。',
     caption: `05｜AIを使う前に、やることがある。
 
 AIを入れれば仕事が楽になる、とは思っていません。
@@ -243,7 +250,8 @@ ${SERIES_TAGLINE}`,
     variant: 'bleed',
     // 写真全面の型は下側が帯で覆われるため、本人が上へ来るよう切り出した版を使う
     photos: ['pergola-crop.jpg'],
-    focus: '50% 50%',
+    place: 'box',
+    focus: '50% 30%',
     headline: ['AI時代だからこそ、', '人。'],
     sub: '意図を理解し、仕組みを動かせる人へ。',
     headlineSize: 80,
@@ -295,9 +303,11 @@ ${SERIES_TAGLINE}`,
     variant: 'bleedMosaic',
     // 3枚組の列（約358×560）は縦長なので、スマホの縦写真がそのまま活きる
     photos: ['uzbekistan-khiva.jpg', 'uzbekistan-market.jpg', 'hawaii.jpg'],
+    place: 'top',
     focusBy: {
       'uzbekistan-khiva.jpg': '50% 78%',
-      'uzbekistan-market.jpg': '50% 62%',
+      'uzbekistan-market.jpg': '50% 78%',
+      'hawaii.jpg': '50% 70%',
     },
     headline: ['旅を、', '消費で終わらせない。'],
     sub: '世界で得たものを、仕事と家族に戻していく。',
@@ -382,6 +392,7 @@ ${SERIES_TAGLINE}`,
     category: 'VISION',
     variant: 'bleed',
     photos: ['malta.jpg'],
+    place: 'bottom',
     focus: '50% 40%',
     headline: ['仕事を軽くして、', '人生を広げる。'],
     sub: 'AI。仕組み。チーム。そして、世界へ。',
