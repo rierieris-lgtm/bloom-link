@@ -35,6 +35,9 @@ export const posts = [
     category: 'LIFE',
     variant: 'frame',
     photos: ['japan.jpg'],
+    // 縦位置の全身写真を横長の額装に入れると、既定の中央寄せでは顔が切れる。
+    // 上寄せにして、顔が枠に入るようにする。
+    focus: '50% 4%',
     headline: ['全部、', '大切だった。'],
     sub: '会社員22年。子育て。店の経営。家族の介護。',
     headlineSize: 92,
