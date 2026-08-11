@@ -44,11 +44,16 @@ function loadPlaywright() {
   )
 }
 
-/** プロフィール画面に近い縮尺で9枚を並べ、grid.png として書き出す */
+/** プロフィール画面に近い縮尺で9枚を並べる */
 const GRID_SCALE = 1 / 3
 const GRID_GUTTER = 4
 
-async function renderGrid(page) {
+/**
+ * @param {object} page
+ * @param {object[]} list 並べる順番
+ * @param {string} file 出力ファイル名
+ */
+async function renderGrid(page, list, file) {
   const cellW = Math.round(CANVAS.w * GRID_SCALE)
   const cellH = Math.round(CANVAS.h * GRID_SCALE)
 
@@ -59,7 +64,8 @@ async function renderGrid(page) {
 
   await page.evaluate(
     ({ cards, cellW, cellH, gutter, scale }) => {
-      document.getElementById('stage').outerHTML = `
+      // #stage 自体は残す。2種類の並びを続けて書き出すため、毎回中身だけ入れ替える。
+      document.getElementById('stage').innerHTML = `
         <div id="grid" style="display:grid;grid-template-columns:repeat(3,${cellW}px);gap:${gutter}px;background:#fff;width:max-content">
           ${cards
             .map(
@@ -71,7 +77,7 @@ async function renderGrid(page) {
         </div>`
     },
     {
-      cards: posts.map(p => cardHTML(p, { assetBase: '.' })),
+      cards: list.map(p => cardHTML(p, { assetBase: '.' })),
       cellW,
       cellH,
       gutter: GRID_GUTTER,
@@ -88,7 +94,7 @@ async function renderGrid(page) {
     ).then(() => true)
   )
 
-  await page.locator('#grid').screenshot({ path: resolve(OUT_DIR, 'grid.png') })
+  await page.locator('#grid').screenshot({ path: resolve(OUT_DIR, file) })
 }
 
 async function main() {
@@ -160,8 +166,14 @@ async function main() {
 
     // 9枚並べた状態そのものが1つの作品。1枚直すたびにここへ戻って全体を見る。
     if (targets.length === posts.length) {
-      await renderGrid(page)
-      console.log(`  grid  9枚を並べた確認用`)
+      // 物語の順（01→09）。設計を確認するための並び。
+      await renderGrid(page, posts, 'grid.png')
+      console.log(`  grid            物語の順（01→09）`)
+
+      // Instagramのプロフィールは新しい投稿が左上。01から順に投稿すると
+      // 実際にはこの並びになる。投稿前に見るべきはこちら。
+      await renderGrid(page, [...posts].reverse(), 'grid-instagram.png')
+      console.log(`  grid-instagram  実際の並び（左上が最新）`)
     }
   } finally {
     await browser.close()

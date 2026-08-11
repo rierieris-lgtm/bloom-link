@@ -27,6 +27,27 @@ function Card({ post, width }) {
   )
 }
 
+/** 3×3に並べる。list の順番でそのまま置く。 */
+function Grid({ list, width }) {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(3, ${width}px)`,
+        gap: 4,
+        justifyContent: 'start',
+        background: '#fff',
+        width: 'max-content',
+        boxShadow: '0 2px 30px rgba(43,95,122,0.09)',
+      }}
+    >
+      {list.map(p => (
+        <Card key={p.no} post={p} width={width} />
+      ))}
+    </div>
+  )
+}
+
 function CopyButton({ text, label }) {
   const [done, setDone] = useState(false)
 
@@ -116,28 +137,23 @@ export default function Instagram9() {
         </p>
       </header>
 
-      {/* 9枚グリッド */}
+      {/* 9枚グリッド — 実際の並びと、物語の順の2つ */}
       <section style={{ padding: '0 3rem 4rem', maxWidth: 1180, margin: '0 auto' }}>
-        <SectionLabel>グリッド全体 — プロフィール画面での見え方</SectionLabel>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(3, ${gridWidth}px)`,
-            gap: 4,
-            justifyContent: 'start',
-            background: '#fff',
-            width: 'max-content',
-            boxShadow: '0 2px 30px rgba(43,95,122,0.09)',
-          }}
-        >
-          {posts.map(p => (
-            <Card key={p.no} post={p} width={gridWidth} />
-          ))}
-        </div>
-        <p style={{ fontSize: '0.72rem', lineHeight: 2, color: '#8A98A5', marginTop: '1.5rem', maxWidth: 620 }}>
-          1枚を直したら、必ずここへ戻って全体のバランスを確認する。
-          写真の型（額装・帯・3枚組・写真なし）が縦にも横にも並ばないように配置しています。
+        <SectionLabel>プロフィール画面での実際の見え方</SectionLabel>
+        <p style={{ fontSize: '0.76rem', lineHeight: 2, color: '#7B8B99', marginTop: '-0.8rem', marginBottom: '1.6rem', maxWidth: 620 }}>
+          Instagramは新しい投稿が左上に来ます。01から順に投稿すると、
+          グリッドでは09が左上、01が右下になります。<strong style={{ fontWeight: 400 }}>投稿前に見るのはこちら。</strong>
         </p>
+        <Grid list={[...posts].reverse()} width={gridWidth} />
+
+        <div style={{ height: '3.5rem' }} />
+
+        <SectionLabel>物語の順（01 → 09）</SectionLabel>
+        <p style={{ fontSize: '0.76rem', lineHeight: 2, color: '#7B8B99', marginTop: '-0.8rem', marginBottom: '1.6rem', maxWidth: 620 }}>
+          設計を確認するための並び。写真の型（額装・帯・3枚組・写真なし）が
+          縦にも横にも隣り合わないよう配置しています。1枚直したら、ここへ戻って全体を見る。
+        </p>
+        <Grid list={posts} width={gridWidth} />
       </section>
 
       {/* 1枚ずつ */}

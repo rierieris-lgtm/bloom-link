@@ -191,10 +191,18 @@ const img = (base, file, { focus, style = '' } = {}) =>
     focus ? ` style="--focus:${focus};${style}"` : style ? ` style="${style}"` : ''
   } alt="" />`
 
-const head = p => `
+/**
+ * 上左のヘッダー。
+ *
+ * numbers を false にすると番号を外し、カテゴリーだけにする。
+ * Instagramのプロフィールは新しい投稿が左上に来るため、01から順に投稿すると
+ * グリッド上では 09 08 07 / 06 05 04 / 03 02 01 と逆順に並ぶ。
+ * 番号を見せるかどうかは、その並びを見てから決められるようにしてある。
+ */
+const head = (p, numbers) => `
     <div class="ig-head">
-      <div class="ig-no ig-latin">${esc(p.no)}</div>
-      <div class="ig-rule"></div>
+      ${numbers ? `<div class="ig-no ig-latin">${esc(p.no)}</div>` : ''}
+      <div class="ig-rule"${numbers ? '' : ' style="margin-top:0"'}></div>
       <div class="ig-cat">${esc(p.category)}</div>
     </div>`
 
@@ -210,14 +218,18 @@ const body = p => `
       ${p.sub ? `<div class="ig-sub">${esc(p.sub)}</div>` : ''}
     </div>`
 
-const foot = p =>
+const foot = (p, numbers) =>
   p.variant === 'finale'
     ? // 09はコピー自体がシリーズの一文なので、フッターで繰り返さない。
       // 左に01-09のインデックスで物語を閉じ、右は屋号ではなく本人の署名にする。
       `<div class="ig-foot" style="align-items:flex-end">
-      <div class="ig-index ig-latin">${['01', '02', '03', '04', '05', '06', '07', '08', '09']
-        .map(n => `<span class="${n === p.no ? 'on' : ''}">${n}</span>`)
-        .join('')}</div>
+      ${
+        numbers
+          ? `<div class="ig-index ig-latin">${['01', '02', '03', '04', '05', '06', '07', '08', '09']
+              .map(n => `<span class="${n === p.no ? 'on' : ''}">${n}</span>`)
+              .join('')}</div>`
+          : `<div class="ig-foot-tag">仕事を軽くして、人生を広げる。</div>`
+      }
       ${p.signature ? `<div class="ig-sign">${esc(p.signature)}</div>` : ''}
     </div>`
     : `<div class="ig-foot">
@@ -317,9 +329,15 @@ const VARIANTS = {
  * @param {object} post posts.js の1件
  * @param {object} [opts]
  * @param {string} [opts.assetBase] 画像のベースパス（プレビューは '' / 書き出しは '.'）
+ * @param {boolean} [opts.numbers] 表紙に01〜09の番号を出すか（既定 false）
+ *   Instagramのプロフィールは新しい投稿が左上に来るので、01から順に投稿すると
+ *   グリッドでは 09 08 07 / 06 05 04 / 03 02 01 と番号が逆から並んでしまう。
+ *   順番はキャプション冒頭の「01｜」で伝えることにして、表紙からは外した。
+ *   戻したいときは true を渡す。
  */
 export function cardHTML(post, opts = {}) {
   const base = opts.assetBase ?? ''
+  const numbers = opts.numbers ?? false
   const build = VARIANTS[post.variant]
   if (!build) throw new Error(`unknown variant: ${post.variant}`)
 
@@ -340,13 +358,13 @@ export function cardHTML(post, opts = {}) {
         : ''
     }
     <div class="ig-stack">
-      ${head(post)}
+      ${head(post, numbers)}
       <div class="ig-media ${v.mediaClass ?? ''}">
         ${v.media ?? ''}
         ${v.goldHair ? `<div class="ig-hair" style="left:${TOKENS.marginX}px;background:${TOKENS.gold}"></div>` : ''}
       </div>
       ${body(post)}
-      ${foot(post)}
+      ${foot(post, numbers)}
     </div>
   </div>`
 }
