@@ -1,11 +1,15 @@
 /**
  * 写真をサイトに載せられるサイズに整える。
  *
- *   node scripts/optimize-photos.mjs <入力> <出力名> [<入力> <出力名> ...]
+ *   node scripts/optimize-photos.mjs [--trim] <入力> <出力名> [<入力> <出力名> ...]
  *
  * 例:
  *   node scripts/optimize-photos.mjs \
  *     public/travel/IMG_0237.jpeg uzbekistan-market.jpg
+ *
+ * --trim は上下左右の黒帯（レターボックス）を落とす。
+ * 画面録画や動画から書き出した画像には黒帯が付いていることがあり、
+ * そのまま表紙に入れると「暗くしない」というルールに反してしまう。
  *
  * スマホから上げた写真はそのままだと5〜8MBあり、リポジトリとサイトが重くなる。
  * 表紙は1080×1350なので、長辺2000pxあれば引き伸ばしにはならない。
@@ -39,7 +43,9 @@ function loadPlaywright() {
 }
 
 async function main() {
-  const args = process.argv.slice(2)
+  const argv = process.argv.slice(2)
+  const trim = argv.includes('--trim')
+  const args = argv.filter(a => a !== '--trim')
   if (!args.length || args.length % 2 !== 0) {
     throw new Error('入力ファイルと出力名を対で渡してください。')
   }
@@ -57,43 +63,102 @@ async function main() {
   try {
     for (const { from, to } of jobs) {
       const bytes = await readFile(from)
-      const dataUrl = `data:image/jpeg;base64,${bytes.toString('base64')}`
+      const mime = /\.png$/i.test(from) ? 'image/png' : 'image/jpeg'
+      const dataUrl = `data:${mime};base64,${bytes.toString('base64')}`
 
       const result = await page.evaluate(
-        async ({ dataUrl, maxEdge, quality }) => {
+        async ({ dataUrl, maxEdge, quality, trim }) => {
           const img = new Image()
           img.src = dataUrl
           await img.decode()
 
           // naturalWidth/Height は EXIF の向きを反映した値になる
           const { naturalWidth: w, naturalHeight: h } = img
-          const scale = Math.min(1, maxEdge / Math.max(w, h))
-          const outW = Math.round(w * scale)
-          const outH = Math.round(h * scale)
+
+          // 切り出す範囲。既定は全面。
+          let sx = 0
+          let sy = 0
+          let sw = w
+          let sh = h
+
+          if (trim) {
+            // 黒帯を検出する。行・列ごとに一番明るい画素を見て、
+            // どこも暗いままの帯を端から削る。
+            const probe = document.createElement('canvas')
+            probe.width = w
+            probe.height = h
+            const pctx = probe.getContext('2d', { willReadFrequently: true })
+            pctx.drawImage(img, 0, 0)
+            const { data } = pctx.getImageData(0, 0, w, h)
+
+            const DARK = 24 // これ以下なら黒帯とみなす
+            const STEP = 8 // 走査を間引く（速度のため）
+            const brightestInRow = y => {
+              let m = 0
+              for (let x = 0; x < w; x += STEP) {
+                const i = (y * w + x) * 4
+                const v = Math.max(data[i], data[i + 1], data[i + 2])
+                if (v > m) m = v
+              }
+              return m
+            }
+            const brightestInCol = x => {
+              let m = 0
+              for (let y = 0; y < h; y += STEP) {
+                const i = (y * w + x) * 4
+                const v = Math.max(data[i], data[i + 1], data[i + 2])
+                if (v > m) m = v
+              }
+              return m
+            }
+
+            let top = 0
+            while (top < h - 1 && brightestInRow(top) <= DARK) top++
+            let bottom = h - 1
+            while (bottom > top && brightestInRow(bottom) <= DARK) bottom--
+            let left = 0
+            while (left < w - 1 && brightestInCol(left) <= DARK) left++
+            let right = w - 1
+            while (right > left && brightestInCol(right) <= DARK) right--
+
+            sx = left
+            sy = top
+            sw = right - left + 1
+            sh = bottom - top + 1
+          }
+
+          const scale = Math.min(1, maxEdge / Math.max(sw, sh))
+          const outW = Math.round(sw * scale)
+          const outH = Math.round(sh * scale)
 
           const canvas = document.createElement('canvas')
           canvas.width = outW
           canvas.height = outH
           const ctx = canvas.getContext('2d')
           ctx.imageSmoothingQuality = 'high'
-          ctx.drawImage(img, 0, 0, outW, outH)
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH)
 
           return {
             from: { w, h },
+            trimmed: { w: sw, h: sh },
             to: { w: outW, h: outH },
             jpeg: canvas.toDataURL('image/jpeg', quality).split(',')[1],
           }
         },
-        { dataUrl, maxEdge: MAX_EDGE, quality: QUALITY }
+        { dataUrl, maxEdge: MAX_EDGE, quality: QUALITY, trim }
       )
 
       const out = Buffer.from(result.jpeg, 'base64')
       await writeFile(to, out)
 
       const kb = n => `${Math.round(n / 1024)}KB`
+      const cropped =
+        result.trimmed && (result.trimmed.w !== result.from.w || result.trimmed.h !== result.from.h)
+          ? `  （黒帯を除いて ${result.trimmed.w}×${result.trimmed.h}）`
+          : ''
       console.log(
         `  ${basename(from)}  ${result.from.w}×${result.from.h} ${kb(bytes.length)}` +
-          `  →  ${basename(to)}  ${result.to.w}×${result.to.h} ${kb(out.length)}`
+          `  →  ${basename(to)}  ${result.to.w}×${result.to.h} ${kb(out.length)}${cropped}`
       )
 
       if (to !== from) await rm(from)
