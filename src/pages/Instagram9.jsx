@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { CANVAS, CARD_CSS, cardHTML, TOKENS } from '../instagram9/card'
-import { hashtagsBase, hashtagsByPost, posts, SERIES_TAGLINE } from '../instagram9/posts'
+import { hashtagsFor, posts, SERIES_TAGLINE } from '../instagram9/posts'
 
 /**
  * /instagram9 — 最初の9投稿の制作確認画面。
@@ -95,11 +95,7 @@ export default function Instagram9() {
   const captions = useMemo(
     () =>
       Object.fromEntries(
-        posts.map(p => [
-          p.no,
-          // 投稿ごとの hashtags があればそれを使い、無ければ共通＋個別を組み立てる
-          `${p.caption}\n\n${p.hashtags ?? [...hashtagsBase, ...(hashtagsByPost[p.no] ?? [])].join(' ')}`,
-        ])
+        posts.map(p => [p.no, `${p.caption}\n\n${hashtagsFor(p.no)}`])
       ),
     []
   )
