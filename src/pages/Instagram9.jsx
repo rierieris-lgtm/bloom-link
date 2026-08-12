@@ -97,7 +97,8 @@ export default function Instagram9() {
       Object.fromEntries(
         posts.map(p => [
           p.no,
-          `${p.caption}\n\n${[...hashtagsBase, ...(hashtagsByPost[p.no] ?? [])].join(' ')}`,
+          // 投稿ごとの hashtags があればそれを使い、無ければ共通＋個別を組み立てる
+          `${p.caption}\n\n${p.hashtags ?? [...hashtagsBase, ...(hashtagsByPost[p.no] ?? [])].join(' ')}`,
         ])
       ),
     []
