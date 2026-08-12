@@ -110,8 +110,10 @@ export const CARD_CSS = `
  */
 .ig-label { flex: none; margin-bottom: ${LABEL_GAP}px; }
 .ig-no { font-weight: 300; font-size: 34px; line-height: 1; letter-spacing: 0.18em; color: ${TOKENS.navy}; margin-bottom: 22px; }
-.ig-rule { width: 44px; height: 1px; background: ${TOKENS.gold}; margin-bottom: 18px; }
 .ig-cat { font-size: 17px; font-weight: 400; letter-spacing: 0.34em; color: ${TOKENS.faint}; }
+
+/* 見出しとサブの間に置く。この位置が投稿済みの01と揃っている。 */
+.ig-rule { width: 300px; height: 1px; background: ${TOKENS.gold}; opacity: 0.75; margin: 28px 0 24px; }
 
 /* 写真・数字・余白が入る可変の領域。コピーが長い回は自動でここが縮む */
 .ig-media { position: relative; flex: 1 1 auto; min-height: 0; margin: ${MEDIA_TOP}px 0 ${MEDIA_BOTTOM}px; }
@@ -122,7 +124,7 @@ export const CARD_CSS = `
   line-height: 1.5; letter-spacing: 0.02em; color: ${TOKENS.navy};
 }
 .ig-sub {
-  margin-top: 28px; font-size: 25px; font-weight: 300;
+  font-size: 25px; font-weight: 300;
   line-height: 1.9; letter-spacing: 0.04em; color: ${TOKENS.muted};
 }
 
@@ -142,9 +144,6 @@ export const CARD_CSS = `
   margin-top: 26px; padding-top: 22px; border-top: 1px solid ${TOKENS.line};
   font-size: 21px; letter-spacing: 0.08em; color: ${TOKENS.faint};
 }
-
-/* 02・04 — 写真を使わない回の、控えめな区切り */
-.ig-hair { position: absolute; left: 0; bottom: 0; width: 120px; height: 1px; background: ${TOKENS.line}; }
 
 /* 04 — 構造を変える4手。順番そのものを図で見せる */
 .ig-flow { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-start; }
@@ -198,7 +197,6 @@ const img = (base, file, { focus, style = '' } = {}) =>
 const label = (p, numbers) => `
     <div class="ig-label">
       ${numbers ? `<div class="ig-no ig-latin">${esc(p.no)}</div>` : ''}
-      <div class="ig-rule"></div>
       <div class="ig-cat">${esc(p.category)}</div>
     </div>`
 
@@ -211,7 +209,7 @@ const body = p => `
       <div class="ig-headline" style="font-size:${p.headlineSize}px">
         ${p.headline.map(l => `<div>${esc(l)}</div>`).join('\n        ')}
       </div>
-      ${p.sub ? `<div class="ig-sub">${esc(p.sub)}</div>` : ''}
+      ${p.sub ? `<div class="ig-rule"></div>\n      <div class="ig-sub">${esc(p.sub)}</div>` : ''}
     </div>`
 
 /**
@@ -258,8 +256,8 @@ const VARIANTS = {
     band: true,
   }),
 
-  /** 写真なし。タイポグラフィだけで持たせる型。 */
-  ivory: () => ({ media: '<div class="ig-hair"></div>' }),
+  /** 写真なし。タイポグラフィと余白だけで持たせる型。 */
+  ivory: () => ({}),
 
   /** 構造を変える4手。05の「問い」に対して、こちらは「動作」を横並びで見せる。 */
   flow: p => ({
@@ -309,8 +307,9 @@ export function cardHTML(post, opts = {}) {
 
   // 文字が占める高さ。行数から出すので、コピーを増減しても写真に埋もれない。
   const headlineH = post.headline.length * post.headlineSize * 1.5
-  const subH = post.sub ? 28 + 25 * 1.9 : 0
-  const labelH = (numbers ? 34 + 22 : 0) + 1 + 18 + 24 + LABEL_GAP
+  // サブの前に罫線が入る（28 + 罫線1 + 24 + 行の高さ）
+  const subH = post.sub ? 28 + 1 + 24 + 25 * 1.9 : 0
+  const labelH = (numbers ? 34 + 22 : 0) + 24 + LABEL_GAP
   const footH = 60 + 24
   const bandH = Math.round(TOKENS.marginY + footH + subH + headlineH + labelH + 34)
 
