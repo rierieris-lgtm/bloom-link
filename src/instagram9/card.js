@@ -40,6 +40,8 @@ const PHOTO_FILTER = 'saturate(1.04) brightness(1.03)'
 
 /** 罫線＋カテゴリーの塊と、コピーとの間隔。 */
 const LABEL_GAP = 30
+/** 縦割りの型で、左のアイボリー面が占める幅。 */
+const SIDE_W = 540
 const MEDIA_TOP = 46
 const MEDIA_BOTTOM = 52
 
@@ -92,6 +94,32 @@ export const CARD_CSS = `
 }
 /* 帯が上にある型。文字を先に置き、余った下を写真に渡す */
 .ig-stack--top { justify-content: flex-start; }
+
+/*
+ * 縦割りの型。左にアイボリーの面、右に写真。
+ * 帯（横割り）と並べると向きが変わるので、グリッドのリズムがはっきりする。
+ *
+ * 文字が入る幅は386pxしかない。この型を使う投稿は
+ *   ・見出しを52〜58pxまで落とす
+ *   ・headline を1行6文字くらいに割る（長い行は勝手に折れて読みにくくなる）
+ * の2つが必要。
+ */
+.ig-side {
+  position: absolute; z-index: 2; top: 0; bottom: 0; left: 0;
+  width: ${SIDE_W}px; background: ${TOKENS.ivory};
+  display: flex; flex-direction: column; justify-content: center;
+  padding: ${TOKENS.marginY}px 64px ${TOKENS.marginY}px ${TOKENS.marginX}px;
+}
+/* 写真との境目を少しだけ溶かす（硬い直線にしない） */
+.ig-side::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 100%; width: 46px;
+  background: linear-gradient(to right, rgba(250,248,243,0.92), rgba(250,248,243,0));
+}
+/* 狭い列では横並びにすると重なるので、フッターは縦に積む */
+.ig-side .ig-foot {
+  margin-top: 52px;
+  flex-direction: column; align-items: flex-start; gap: 14px;
+}
 
 /*
  * 文字を浮かぶ箱に入れる型。写真が箱の左右と下にも残るので、
@@ -323,12 +351,19 @@ export function cardHTML(post, opts = {}) {
 
   // 写真は帯の外側だけを埋める高さで置く。キャンバス全面にすると、
   // 横位置の写真が上下で大きく切れ、拡大率も上がってしまう。
-  const photoH = place === 'box' ? CANVAS.h : CANVAS.h - bandH
+  const photoH = place === 'box' || place === 'side' ? CANVAS.h : CANVAS.h - bandH
   const v = build(post, base, photoH)
 
   const content = `${label(post, numbers)}
       ${body(post)}
       ${foot(post)}`
+
+  if (place === 'side') {
+    return `<div class="ig-card" data-no="${esc(post.no)}">
+    ${v.behind ?? ''}
+    <div class="ig-side">${content}</div>
+  </div>`
+  }
 
   if (place === 'box') {
     return `<div class="ig-card" data-no="${esc(post.no)}">
