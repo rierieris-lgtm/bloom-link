@@ -10,7 +10,8 @@
     "ig:fonts": "node scripts/fetch-card-fonts.mjs",
     "ig:render": "node scripts/render-instagram9.mjs",
     "ig:photo": "node scripts/optimize-photos.mjs",
-    "ig:copy": "node scripts/write-copy-doc.mjs"
+    "ig:copy": "node scripts/write-copy-doc.mjs",
+    "ig:handoff": "node scripts/build-handoff.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",

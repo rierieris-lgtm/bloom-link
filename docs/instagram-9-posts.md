@@ -39,6 +39,7 @@
 | 表紙用フォント（サブセット） | `public/instagram/fonts/` |
 | 文章の原稿（自動生成） | `docs/instagram-9-原稿.md` |
 | デザインの依頼書（ChatGPT用） | `docs/instagram-9-引っ越しセット.md` |
+| 引っ越しフォルダ（自動生成） | `handoff/` |
 
 デザインの定義は `card.js` の1か所だけ。
 確認画面と書き出しスクリプトは、どちらも同じファイルを読んでいる。
@@ -77,6 +78,7 @@ npm run ig:render    # PNGを書き出す（public/instagram/）
 npm run ig:render 01 # 番号を指定して1枚だけ
 npm run ig:fonts     # 表紙のコピーに新しい漢字を足したときだけ
 npm run ig:copy      # docs/instagram-9-原稿.md を作り直す
+npm run ig:handoff   # handoff/ を作り直す（VS Code で渡す一式）
 ```
 
 **文章を直したら `ig:copy` を流す。** これを忘れると原稿ファイルだけが古くなる。

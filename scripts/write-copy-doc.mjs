@@ -1,13 +1,16 @@
 /**
- * docs/instagram-9-原稿.md を posts.js から書き出す。
+ * 原稿（文章だけをまとめた1枚）を posts.js から組み立てる。
  *
  * 分担が「デザイン＝ChatGPT／構成と文章＝こちら」に分かれたので、
  * 文章だけを1ファイルにまとめて渡せるようにしている。
  *
- * 手で書き写さないのが要点。posts.js を直して `npm run ig:copy` を流せば、
- * 原稿ファイルも必ず一緒に変わる。二重管理にすると必ずどちらかが古くなる。
+ * 手で書き写さないのが要点。posts.js を直して流せば、原稿も必ず一緒に変わる。
+ * 二重管理にすると必ずどちらかが古くなる。
  *
- *   npm run ig:copy
+ *   npm run ig:copy       docs/instagram-9-原稿.md を書き出す
+ *   npm run ig:handoff    引っ越しフォルダ（handoff/）ごと組み立てる
+ *
+ * buildCopyDoc() は build-handoff.mjs からも呼ばれる。
  */
 
 import { writeFileSync } from 'node:fs'
@@ -54,7 +57,7 @@ ${hashtagsFor(p.no)}
 本文 ${p.caption.length}字（プロフィール定型を含む）
 `
 
-const doc = `# Instagram 9投稿｜原稿
+export const buildCopyDoc = () => `# Instagram 9投稿｜原稿
 
 **このファイルは文章だけを扱います。デザインは \`docs/instagram-9-引っ越しセット.md\` です。**
 
@@ -86,7 +89,8 @@ const doc = `# Instagram 9投稿｜原稿
 
 1. **箇条書き（・）を使わない。** 01にも02にも1つもありません。全部が地の文です。
    箇条書きが入ると、体験談ではなく解説記事に見えます
-2. **1行は22字まで。** スマホで折り返さない幅。長い一文は意味の切れ目で改行して2行にします
+2. **1行は23字まで。** 投稿済みの最長が01で23字、02で22字。スマホで折り返さない幅です。
+   長い一文は意味の切れ目で改行して2行にします
 3. **1段落は1〜3行。** 段落の間は必ず1行あけます
 4. **抽象語ではなく、具体的な事実。**「4年間の産休・育休」「小学生2人の子育てと、全国への出張」
    「15年以上、抱えていました」。数字と場面があります
@@ -130,5 +134,8 @@ ${PROFILE_FOOTER}
 
 ${posts.map(section).join('\n---\n\n')}`
 
-writeFileSync(out, doc)
-console.log(`docs/instagram-9-原稿.md を書き出しました（${posts.length}投稿）`)
+// 直接叩かれたときだけ docs/ へ書き出す（import されたときは何もしない）
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  writeFileSync(out, buildCopyDoc())
+  console.log(`docs/instagram-9-原稿.md を書き出しました（${posts.length}投稿）`)
+}

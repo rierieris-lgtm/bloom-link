@@ -16,8 +16,8 @@
  *        01にも02にも1つも無い。全部が地の文。
  *        箇条書きが入ると、体験談ではなく解説記事に見える。
  *
- *   2. 1行は22字まで
- *        01・02の最長が22字。スマホで折り返さない幅。
+ *   2. 1行は23字まで
+ *        投稿済みの最長は01が23字、02が22字。スマホで折り返さない幅。
  *        長い一文は意味の切れ目で改行して2行にする。
  *
  *   3. 1段落は1〜3行。段落の間は必ず1行あける
@@ -129,6 +129,7 @@ Rie｜${SERIES_TAGLINE}
 export const posts = [
   {
     no: '01',
+    status: '投稿済み',
     category: 'LIFE',
     variant: 'bleed',
     photos: ['rie-book.jpg'],
@@ -205,6 +206,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '02',
+    status: '投稿済み',
     category: 'ABOUT ME',
     variant: 'bleed',
     /*
@@ -284,6 +286,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '03',
+    status: '本文は確定。表紙待ち',
     category: 'GLOBAL WORK',
     variant: 'bleed',
     photos: ['barcelona.jpg'],
@@ -462,6 +465,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '04',
+    status: '書き直し',
     category: 'HOW I WORK',
     variant: 'flow',
     photos: [],
@@ -508,6 +512,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '05',
+    status: '書き直し',
     category: 'AI & SYSTEM',
     variant: 'bleed',
     photos: ['desk-work.jpg'],
@@ -548,6 +553,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '06',
+    status: '書き直し',
     category: 'PEOPLE',
     variant: 'bleed',
     /*
@@ -635,6 +641,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '07',
+    status: '書き直し',
     category: 'TRAVEL × WORK',
     variant: 'bleedMosaic',
     // 3枚組の列（約358×560）は縦長なので、スマホの縦写真がそのまま活きる
@@ -705,6 +712,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '08',
+    status: '書き直し',
     category: 'RESULTS',
     variant: 'stat',
     photos: [],
@@ -749,6 +757,7 @@ ${PROFILE_FOOTER}`,
 
   {
     no: '09',
+    status: '書き直し',
     category: 'VISION',
     variant: 'bleed',
     photos: ['malta.jpg'],
