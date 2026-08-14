@@ -9,6 +9,23 @@
 
 ---
 
+## 0. 分担
+
+| 中身 | 担当 | 見るファイル |
+| --- | --- | --- |
+| 全体構成・表紙の文字・本文・ハッシュタグ | **Claude** | `docs/instagram-9-原稿.md` |
+| 表紙のデザイン・写真の選定と配置 | **ChatGPT** | `docs/instagram-9-引っ越しセット.md` |
+
+**表紙は本人がChatGPTで制作します。** このリポジトリが書き出すPNGは
+デザインの提案と記録であって、投稿する表紙そのものではありません。
+型の割り当て（箱・帯・縦割り）も**提案**で、最終判断はデザイン側にあります。
+
+文章のほうは逆で、**このリポジトリが正**です。`src/instagram9/posts.js` を直して
+`npm run ig:copy` を流すと `docs/instagram-9-原稿.md` が作り直されます。
+原稿ファイルを直接書き換えると次の実行で消えます。
+
+---
+
 ## 1. どこに何があるか
 
 | 中身 | 場所 |
@@ -20,7 +37,8 @@
 | 9枚を並べた確認用（物語の順） | `public/instagram/grid.png` |
 | 9枚を並べた確認用（実際の並び） | `public/instagram/grid-instagram.png` |
 | 表紙用フォント（サブセット） | `public/instagram/fonts/` |
-| 他ツールへ渡す一式 | `docs/instagram-9-引っ越しセット.md` |
+| 文章の原稿（自動生成） | `docs/instagram-9-原稿.md` |
+| デザインの依頼書（ChatGPT用） | `docs/instagram-9-引っ越しセット.md` |
 
 デザインの定義は `card.js` の1か所だけ。
 確認画面と書き出しスクリプトは、どちらも同じファイルを読んでいる。
@@ -58,7 +76,10 @@ npm run dev          # /instagram9 で9枚まとめて確認
 npm run ig:render    # PNGを書き出す（public/instagram/）
 npm run ig:render 01 # 番号を指定して1枚だけ
 npm run ig:fonts     # 表紙のコピーに新しい漢字を足したときだけ
+npm run ig:copy      # docs/instagram-9-原稿.md を作り直す
 ```
+
+**文章を直したら `ig:copy` を流す。** これを忘れると原稿ファイルだけが古くなる。
 
 `ig:render` は Playwright を使う。入っていなければ `npm i -D playwright` を先に。
 サイト本体のビルドには関係しないので、依存には入れていない。

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "ig:fonts": "node scripts/fetch-card-fonts.mjs",
     "ig:render": "node scripts/render-instagram9.mjs",
-    "ig:photo": "node scripts/optimize-photos.mjs"
+    "ig:photo": "node scripts/optimize-photos.mjs",
+    "ig:copy": "node scripts/write-copy-doc.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",
