@@ -40,8 +40,12 @@ const PHOTO_FILTER = 'saturate(1.04) brightness(1.03)'
 
 /** 罫線＋カテゴリーの塊と、コピーとの間隔。 */
 const LABEL_GAP = 30
-/** 縦割りの型で、左のアイボリー面が占める幅。 */
-const SIDE_W = 540
+/**
+ * 縦割りの型で、左のアイボリー面が占める幅。
+ * 投稿済みの02が画面の約43%だったので、それに合わせている。
+ * 半分にすると写真が細く見え、面が余る。
+ */
+const SIDE_W = 466
 const MEDIA_TOP = 46
 const MEDIA_BOTTOM = 52
 
@@ -108,7 +112,7 @@ export const CARD_CSS = `
   position: absolute; z-index: 2; top: 0; bottom: 0; left: 0;
   width: ${SIDE_W}px; background: ${TOKENS.ivory};
   display: flex; flex-direction: column; justify-content: center;
-  padding: ${TOKENS.marginY}px 64px ${TOKENS.marginY}px ${TOKENS.marginX}px;
+  padding: ${TOKENS.marginY}px 44px ${TOKENS.marginY}px ${TOKENS.marginX}px;
 }
 /* 写真との境目を少しだけ溶かす（硬い直線にしない） */
 .ig-side::after {
