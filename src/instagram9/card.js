@@ -128,6 +128,10 @@ export const CARD_CSS = `
 /*
  * 文字を浮かぶ箱に入れる型。写真が箱の左右と下にも残るので、
  * 帯の型と並べたときにリズムが出る。
+ *
+ * この型だけは写真の上下を両方とも残せる。
+ * 帯は必ず画面の端から45%を食うので、写真の上と下の両方に見せたいものがある回
+ * （03＝上に尖塔・下に本人）は、帯ではなくこの型を使う。
  */
 .ig-boxed {
   position: absolute; z-index: 2;
@@ -135,6 +139,9 @@ export const CARD_CSS = `
   background: ${TOKENS.ivory};
   padding: 56px 54px 50px;
 }
+/* 幅を絞って片側に寄せる。写真の空いている側に置く */
+.ig-boxed--left { right: auto; width: 620px; }
+.ig-boxed--top { bottom: auto; top: ${TOKENS.marginY}px; }
 
 /*
  * 罫線＋カテゴリー。写真を全面に使うため、上端ではなくコピーの直上に置く。
@@ -241,7 +248,13 @@ const body = p => `
       <div class="ig-headline" style="font-size:${p.headlineSize}px">
         ${p.headline.map(l => `<div>${esc(l)}</div>`).join('\n        ')}
       </div>
-      ${p.sub ? `<div class="ig-rule"></div>\n      <div class="ig-sub">${esc(p.sub)}</div>` : ''}
+      ${
+        p.sub
+          ? `<div class="ig-rule"></div>\n      <div class="ig-sub">${(Array.isArray(p.sub) ? p.sub : [p.sub])
+              .map(l => `<div>${esc(l)}</div>`)
+              .join('\n        ')}</div>`
+          : ''
+      }
     </div>`
 
 /**
@@ -340,8 +353,9 @@ export function cardHTML(post, opts = {}) {
 
   // 文字が占める高さ。行数から出すので、コピーを増減しても写真に埋もれない。
   const headlineH = post.headline.length * post.headlineSize * 1.5
-  // サブの前に罫線が入る（28 + 罫線1 + 24 + 行の高さ）
-  const subH = post.sub ? 28 + 1 + 24 + 25 * 1.9 : 0
+  // サブの前に罫線が入る（28 + 罫線1 + 24 + 行の高さ×行数）
+  const subLines = Array.isArray(post.sub) ? post.sub.length : post.sub ? 1 : 0
+  const subH = subLines ? 28 + 1 + 24 + 25 * 1.9 * subLines : 0
   const labelH = (numbers ? 34 + 22 : 0) + 24 + LABEL_GAP
   // フッターは09の署名だけ。無い回はその分、帯を薄くして写真を広く見せる。
   const footH = post.signature ? 60 + 24 : 0
@@ -372,9 +386,23 @@ export function cardHTML(post, opts = {}) {
   }
 
   if (place === 'box') {
+    /*
+     * boxAt で箱の寄せ方を選ぶ。写真の空いている側に置く。
+     *   bottom      … 下・幅いっぱい（既定）
+     *   top-left    … 左上に寄せて幅を絞る（投稿済みの01がこの形）
+     *   bottom-left … 左下に寄せて幅を絞る
+     */
+    const at = post.boxAt ?? 'bottom'
+    const cls = [
+      'ig-boxed',
+      at.endsWith('left') ? 'ig-boxed--left' : '',
+      at.startsWith('top') ? 'ig-boxed--top' : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
     return `<div class="ig-card" data-no="${esc(post.no)}">
     ${v.behind ?? ''}
-    <div class="ig-boxed">${content}</div>
+    <div class="${cls}">${content}</div>
   </div>`
   }
 
