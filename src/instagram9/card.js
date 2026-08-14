@@ -11,7 +11,7 @@
  *   番号           上左（Cormorant 34px / トラッキング .18em）
  *   カテゴリー     番号の下。英字は小さく、1枚に1つだけ
  *   コピー         下寄せ（全変型共通）／明朝・ウエイト300
- *   フッター       シリーズの一文を小さく
+ *   フッター       入れない（09の署名だけ例外）
  *   色             IVORY / WHITE / NAVY / CHARCOAL ＋ くすみゴールド少量
  *   写真           暗くしない。元の色を活かす。文字は明るいアイボリー面の上に置く
  * ─────────────────────────────────────────────
@@ -243,18 +243,19 @@ const body = p => `
 /**
  * フッター。
  *
- * 署名がある回（09）は、コピー自体がシリーズの一文なので繰り返さない。
- * 屋号の代わりに本人の署名を置いて物語を閉じる。
+ * 投稿済みの01・02・03には、どれもフッターが入っていない。
+ * 「仕事を軽くして、人生を広げる。／BLOOM LINK」を毎回入れると、
+ * 表紙の下に説明が居座って写真の余白が死ぬ。シリーズの一文は
+ * 見出しか本文で必ず出るので、表紙で繰り返す必要がなかった。
+ *
+ * 残すのは09の署名だけ。物語を本人の名前で閉じるため。
  */
 const foot = p =>
   p.signature
     ? `<div class="ig-foot" style="justify-content:flex-end">
       <div class="ig-sign">${esc(p.signature)}</div>
     </div>`
-    : `<div class="ig-foot">
-      <div class="ig-foot-tag">仕事を軽くして、人生を広げる。</div>
-      <div class="ig-foot-mark ig-latin">BLOOM LINK</div>
-    </div>`
+    : ''
 
 /**
  * 各変型は「背面レイヤー」と「可変領域の中身」だけを返す。
@@ -338,7 +339,8 @@ export function cardHTML(post, opts = {}) {
   // サブの前に罫線が入る（28 + 罫線1 + 24 + 行の高さ）
   const subH = post.sub ? 28 + 1 + 24 + 25 * 1.9 : 0
   const labelH = (numbers ? 34 + 22 : 0) + 24 + LABEL_GAP
-  const footH = 60 + 24
+  // フッターは09の署名だけ。無い回はその分、帯を薄くして写真を広く見せる。
+  const footH = post.signature ? 60 + 24 : 0
   const bandH = Math.round(TOKENS.marginY + footH + subH + headlineH + labelH + 34)
 
   /**
