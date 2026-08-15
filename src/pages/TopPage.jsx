@@ -207,9 +207,6 @@ export default function TopPage() {
               </div>
             ))}
           </div>
-          <p className="text-center mt-8" style={{fontSize: "0.78rem", lineHeight: 2, color: "#7A8E9A"}}>
-            日本語レッスンは、Blooming Garden・Launch Labのメンバーは受講者限定料金でご参加いただけます。
-          </p>
         </div>
       </section>
 
