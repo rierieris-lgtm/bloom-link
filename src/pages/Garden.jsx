@@ -57,10 +57,10 @@ export default function BloomingGardenPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#2A3540]" style={{fontFamily: "'Zen Maru Gothic', sans-serif"}}>
+    <div className="min-h-screen bg-[#FAF8F3] text-[#2A3540]" style={{fontFamily: "'Zen Kaku Gothic New', sans-serif"}}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Maru+Gothic:wght@300;400;500&display=swap');
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Zen+Old+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap');
+        .font-serif { font-family: 'Cormorant Garamond', 'Zen Old Mincho', serif; }
         html { scroll-behavior: smooth; }
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
@@ -358,6 +358,31 @@ export default function BloomingGardenPage() {
               3ヶ月後、自分に合ったペースを選べます。
             </p>
           </div>
+
+          {/* Gardenの方へ ── Launch Labのご案内 */}
+          <div className="rounded mt-6 p-8 text-left"
+            style={{background:"#FDF7F3",border:"1px solid rgba(196,113,74,0.25)"}}>
+            <p style={{fontSize:"0.65rem",letterSpacing:"0.2em",color:"#C4714A",marginBottom:"0.6rem"}}>
+              GARDENの方へ
+            </p>
+            <p className="font-serif text-[#2B5F7A]" style={{fontSize:"1.15rem",fontWeight:300,marginBottom:"0.8rem"}}>
+              もう一歩、動いてみたくなったら。
+            </p>
+            <p style={{fontSize:"0.8rem",lineHeight:2,color:"#7A8E9A",marginBottom:"1.2rem"}}>
+              Gardenで自分の軸が見えてきたら、<strong style={{color:"#C4714A",fontWeight:500}}>＋¥6,500/月</strong>で
+              Launch Labにも参加できます（合計¥10,000/月）。<br />
+              挑戦を形にする、ビジネス実践コミュニティです。
+            </p>
+            <ul style={{fontSize:"0.78rem",lineHeight:2.2,color:"#7A8E9A",listStyle:"none",marginBottom:"1.4rem"}}>
+              <li>🤝 月2回のチームミーティングで、一人にならずに進める</li>
+              <li>⚡ 実際の仕事にチャレンジしながら、スキルと自信を育てる</li>
+            </ul>
+            <a href="#launch"
+              className="inline-block text-xs tracking-widest px-8 py-3 rounded-full transition-all hover:-translate-y-0.5"
+              style={{background:"#C4714A",color:"white"}}>
+              Launch Labを見てみる
+            </a>
+          </div>
         </div>
       </section>
 
@@ -475,16 +500,24 @@ export default function BloomingGardenPage() {
           </div>
           <div className="mt-8 bg-white rounded p-6" style={{border:"1px solid #EDF3F7"}}>
             <div className="text-center mb-4">
-              <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.5rem"}}>はじめの3ヶ月</p>
-              <p className="font-serif text-[#2B5F7A]" style={{fontSize:"2.8rem",fontWeight:300,lineHeight:1}}>¥6,500</p>
+              <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"0.5rem"}}>はじめの3ヶ月／Blooming Gardenとセット</p>
+              <p className="font-serif text-[#2B5F7A]" style={{fontSize:"2.8rem",fontWeight:300,lineHeight:1}}>¥10,000</p>
               <p style={{fontSize:"0.7rem",color:"#7A8E9A",marginTop:"0.3rem",marginBottom:"0.3rem"}}>/月</p>
+            </div>
+            <div style={{maxWidth:300,margin:"0 auto 1.2rem",fontSize:"0.75rem",color:"#7A8E9A",lineHeight:2}}>
+              <div className="flex justify-between">
+                <span>Blooming Garden</span><span>¥3,500/月</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Launch Lab</span><span>¥6,500/月</span>
+              </div>
             </div>
             <p style={{fontSize:"0.78rem",lineHeight:2,color:"#7A8E9A",textAlign:"center"}}>
               3ヶ月後、自分に合ったペースを選べます。
             </p>
             <div style={{borderTop:"1px solid #F0EBE0",marginTop:"1.2rem",paddingTop:"1.2rem"}}>
               <p style={{fontSize:"0.75rem",color:"#7A8E9A",lineHeight:2}}>
-                <strong style={{color:"#2B5F7A"}}>参加条件：</strong>Blooming Gardenへの同時または事前入会が必要です。
+                <strong style={{color:"#2B5F7A"}}>参加条件：</strong>Blooming Gardenへの同時または事前入会が必要です。Launch Labは単体ではご参加いただけません。
               </p>
             </div>
           </div>
@@ -516,7 +549,7 @@ export default function BloomingGardenPage() {
           小さく試して、<br />世界へ解き放とう。
         </h2>
         <p style={{color:"rgba(255,255,255,0.75)",fontSize:"0.85rem",lineHeight:2.2,marginBottom:"2.5rem"}}>
-          Blooming Garden会員限定。¥6,500/月から。
+          Blooming Gardenとセットで、月額¥10,000から。<br />（Blooming Garden ¥3,500 ＋ Launch Lab ¥6,500）
         </p>
         <a href="https://www.reservestock.jp/conclusions/28510"
           className="inline-block text-white text-xs tracking-widest px-12 py-4 rounded-full transition-all hover:-translate-y-0.5"
