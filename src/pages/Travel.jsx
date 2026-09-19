@@ -74,7 +74,7 @@ export default function Travel() {
           <em style={{ fontStyle: 'italic', color: TERRA }}>人生を広げる体験だ。</em>
         </h1>
         <p className="reveal reveal-d1" style={{ fontSize: '0.88rem', lineHeight: 2.4, color: '#8A98A5', maxWidth: 480, marginBottom: '2.5rem' }}>
-          40カ国以上を旅してきたRieが、あなたの旅をプランニング。<br />
+          35カ国以上を旅してきたRieが、あなたの旅をプランニング。<br />
           旅先での気づきが、自分を知るきっかけになる。
         </p>
         <a href="#services" className="reveal reveal-d2" style={{ display: 'inline-block', fontSize: '0.72rem', letterSpacing: '0.2em', padding: '0.9rem 2.5rem', borderRadius: 100, background: FOREST, color: 'white', textDecoration: 'none', transition: 'transform 0.2s' }}
@@ -143,7 +143,7 @@ export default function Travel() {
               旅で出会った、私の世界
             </h2>
             <p className="reveal reveal-d1" style={{ fontSize: '0.8rem', lineHeight: 2, color: '#8A98A5', marginTop: '1rem' }}>
-              学校見学、自然、ひとり旅、文化体験 — 40カ国の経験から、あなたに合う旅を提案します。
+              学校見学、自然、ひとり旅、文化体験 — 35カ国の経験から、あなたに合う旅を提案します。
             </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.8rem' }}>
@@ -235,7 +235,7 @@ export default function Travel() {
               { era: '20代', text: '旅に出ては、すぐ仕事へ。それでも世界に惹かれ続けた。' },
               { era: '子育て期', text: '子どもとの3週間の海外旅。親子で世界を見た経験。' },
               { era: '転機', text: '内観との出会い。自分の内側を見ることの大切さを知る。' },
-              { era: '現在', text: '40カ国を旅し、「人生をもっと味わう」人の伴走者へ。' },
+              { era: '現在', text: '35カ国を旅し、「人生をもっと味わう」人の伴走者へ。' },
             ].map((item, i) => (
               <div key={i} className={`reveal reveal-d${i % 3}`} style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
                 <span style={{ fontSize: '0.65rem', letterSpacing: '0.15em', color: TERRA, minWidth: 60, paddingTop: '0.15rem' }}>{item.era}</span>

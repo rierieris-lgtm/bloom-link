@@ -115,7 +115,7 @@ export default function TopPage() {
               {
                 name: "旅アドバイザー",
                 tag: "旅プランニング",
-                desc: "旅は観光ではなく、人生の可能性を広げる体験。40カ国以上の経験をもとに、あなたの旅をプランニング。",
+                desc: "旅は観光ではなく、人生の可能性を広げる体験。35カ国以上の経験をもとに、あなたの旅をプランニング。",
                 href: "/travel",
                 price: "無料相談",
                 icon: "✈️",
@@ -192,10 +192,9 @@ export default function TopPage() {
           <p className="text-center" style={{fontSize: "0.78rem", lineHeight: 2, color: "#7A8E9A", marginBottom: "1.5rem"}}>
             ときには、現地へも。ウズベキスタンの日本語学校を訪ねたときの写真です。
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid max-w-2xl mx-auto">
             {[
               {img: "/travel/uzbekistan-lesson.jpg", label: "ウズベキスタン｜ひらがなの練習"},
-              {img: "/travel/uzbekistan-flashcards.jpg", label: "ウズベキスタン｜ことばのカードで"},
             ].map((item, i) => (
               <div key={i} className="relative overflow-hidden rounded" style={{aspectRatio: "16/9"}}>
                 <img src={item.img} alt={item.label}
