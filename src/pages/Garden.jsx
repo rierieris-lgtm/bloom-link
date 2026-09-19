@@ -543,8 +543,8 @@ export default function BloomingGardenPage() {
                   旅で出会った景色が、人生の見方を変えてくれた。<br />
                   その経験をもとに、BLOOM LINKを立ち上げました。
                 </p>
-                <p><strong style={{color:"#2B5F7A"}}>相性のいい人と、一緒に景色を見に行く。</strong><br />
-                それが、私のいちばん大切にしていることです。</p>
+                <p><strong style={{color:"#2B5F7A"}}>大切な人と、一緒に景色を見に行く。</strong><br />
+                それが、私が一番大事にしていることです。</p>
               </div>
               <a href="https://lin.ee/6d68Aqd"
                 className="inline-block text-white text-xs tracking-widest px-8 py-3 rounded-full transition-all hover:-translate-y-0.5"
