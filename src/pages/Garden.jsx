@@ -72,7 +72,7 @@ export default function BloomingGardenPage() {
         <div className="hidden md:flex gap-6 items-center">
           <a href="#garden" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">自分を整える</a>
           <a href="#launch" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">Launch Lab</a>
-          <a href="#rie" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">About Rie</a>
+          <a href="/rie" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">About Rie</a>
           <a href="/business-program" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">ビジネス伴走</a>
           <a href="/travel" className="text-xs tracking-widest text-[#7A8E9A] hover:text-[#2B5F7A] transition-colors">✈️ 旅</a>
           <a href="#join" className="text-xs tracking-widest px-5 py-2 rounded-full text-white transition-all hover:-translate-y-0.5" style={{background: "#C4714A"}}>参加する</a>
@@ -84,7 +84,7 @@ export default function BloomingGardenPage() {
 
       {menuOpen && (
         <div className="fixed inset-0 z-40 bg-[#FAF8F3] flex flex-col items-center justify-center gap-8">
-          {[["Blooming Garden","#garden"],["Launch Lab","#launch"],["About Rie","#rie"],["Business Program","partner-training.jsx"]].map(([label,href]) => (
+          {[["Blooming Garden","#garden"],["Launch Lab","#launch"],["About Rie","/rie"],["Business Program","partner-training.jsx"]].map(([label,href]) => (
             <a key={label} href={href} onClick={()=>setMenuOpen(false)}
               className="font-serif text-[#2B5F7A] text-2xl font-light tracking-wider">{label}</a>
           ))}
@@ -570,18 +570,18 @@ export default function BloomingGardenPage() {
               <h2 className="font-serif text-[#2B5F7A] mt-4 mb-2" style={{fontSize:"2rem",fontWeight:300}}>Rie</h2>
               <p style={{fontSize:"0.7rem",letterSpacing:"0.15em",color:"#7A8E9A",marginBottom:"1.5rem"}}>BLOOM LINK Founder</p>
               <div style={{width:30,height:1,background:"#C4714A",marginBottom:"1.5rem"}} />
-              <div style={{fontSize:"0.85rem",lineHeight:2.5,color:"#7A8E9A",marginBottom:"1.5rem"}}>
-                <p style={{marginBottom:"1rem"}}>元・大手企業秘書。フレンチオーナーシェフの妻。二児の母。35カ国渡航。</p>
-                <p style={{marginBottom:"1rem"}}>
-                  これまでの出会いが、人生の見方を変えてくれた。<br />
-                  その経験をもとに、BLOOM LINKを立ち上げました。
-                </p>
-                <p><strong style={{color:"#2B5F7A"}}>今、目の前にいる人と、同じ景色を見て共に感動したい。</strong><br />
-                仕事でも、家族でも——それが、私が大事にしていることです。</p>
+              <p style={{fontSize:"0.85rem",lineHeight:2.5,color:"#7A8E9A",marginBottom:"1.5rem"}}>
+                元・大手企業秘書。フレンチオーナーシェフの妻。二児の母。35カ国渡航。<br /><br />
+                今、目の前にいる人と、同じ景色を見て共に感動したい——それが、私が大事にしていることです。
+              </p>
+              <div className="flex flex-wrap gap-4 items-center">
+                <a href="https://lin.ee/6d68Aqd"
+                  className="inline-block text-white text-xs tracking-widest px-8 py-3 rounded-full transition-all hover:-translate-y-0.5"
+                  style={{background:"#2B5F7A"}}>LINEで問い合わせ</a>
+                <a href="/rie" className="text-xs tracking-widest" style={{color:"#2B5F7A",borderBottom:"1px solid #2B5F7A"}}>
+                  Rieについてもっと見る →
+                </a>
               </div>
-              <a href="https://lin.ee/6d68Aqd"
-                className="inline-block text-white text-xs tracking-widest px-8 py-3 rounded-full transition-all hover:-translate-y-0.5"
-                style={{background:"#2B5F7A"}}>LINEで問い合わせ</a>
             </div>
           </div>
         </div>
