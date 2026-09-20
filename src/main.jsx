@@ -10,6 +10,7 @@ import Privacy from './pages/Privacy'
 import Tokutei from './pages/Tokutei'
 import Contact from './pages/Contact'
 import Travel from './pages/Travel'
+import Rie from './pages/Rie'
 
 // 別ページから /garden#launch のようなハッシュ付きURLで来たとき、
 // React Routerは自動でスクロールしないので該当セクションまで移動させる
@@ -39,6 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/tokutei" element={<Tokutei />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/travel" element={<Travel />} />
+        <Route path="/rie" element={<Rie />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
