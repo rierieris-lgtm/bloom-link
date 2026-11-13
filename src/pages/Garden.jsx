@@ -429,7 +429,7 @@ export default function BloomingGardenPage() {
           <h2 className="font-serif text-[#2B5F7A] mt-4 mb-4"
             style={{fontSize:"clamp(1.6rem,3.5vw,2.4rem)",fontWeight:300}}>参加者・メンバーの声</h2>
           <p style={{fontSize:"0.82rem",color:"#7A8E9A",lineHeight:2,marginBottom:"2.5rem"}}>
-            Blooming Gardenは、BLOOM LINKが主催するオンラインのジャーナリングサロンです。隔週で昼の部と夜の部を開いています。体験会に参加した方の声と、メンバーとして続けている方の声を、原文のまま紹介します。体験会に参加したあと、今もメンバーとして続けている方もいます。
+            Blooming Gardenは、BLOOM LINKが主催するオンラインのジャーナリングサロンです。隔週で昼の部と夜の部を開いています。体験会に参加した方の声と、メンバーとして続けている方の声を、原文のまま紹介します。体験会に参加した方のほとんどが、その後もメンバーとして続けています。
           </p>
           <h3 className="font-serif text-[#2B5F7A] mb-5" style={{fontSize:"1.15rem",fontWeight:300}}>体験会に参加した方の声</h3>
           <div className="grid md:grid-cols-2 gap-4" style={{marginBottom:"3.5rem"}}>
