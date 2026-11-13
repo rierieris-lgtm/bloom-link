@@ -447,7 +447,7 @@ export default function BloomingGardenPage() {
           </div>
           <h3 className="font-serif text-[#2B5F7A] mb-2" style={{fontSize:"1.15rem",fontWeight:300}}>メンバーとして続けている方の声</h3>
           <p style={{fontSize:"0.75rem",color:"#7A8E9A",lineHeight:1.9,marginBottom:"1.5rem"}}>
-            2026年10月のメンバーアンケート（回答6名）の言葉から。
+            体験会に参加した方のほとんどが、そのままメンバーとして続けています。そのメンバーたちの声を、2026年10月のアンケートから原文のまま紹介します。
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             {MEMBER_VOICES_GARDEN.map((v,i) => (
