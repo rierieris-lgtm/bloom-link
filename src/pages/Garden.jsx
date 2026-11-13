@@ -67,7 +67,53 @@ const VOICES_GARDEN = [
   { label: "海外在住の日本語学習者", quotes: [
     "“I appreciated how Rie created a relaxed, pressure-free atmosphere where everyone could participate in their own way. … Overall, the whole session was thoughtfully facilitated, and I love to join another session in the future ☺️”",
   ]},
+  { label: "海外の日本語学習者", quotes: [
+    "“I liked the notion of giving oneself permission.”",
+    "“I enjoyed the meeting. It was nice to be able to discuss journaling and hear other people's impressions.”",
+  ]},
 ];
+
+const MEMBER_VOICES_GARDEN = [
+  { theme: "書くことで気づく", quotes: [
+    "「文字で書いて言語化することで、本当は自分がどんな気持ちだったのかと言うことに気がつくことができた」",
+  ]},
+  { theme: "続けてみて、分かったこと", quotes: [
+    "「定期的に自分がどうしたいかを確認できるようになり、また内容が少しずつ変わっていっていることにも気づくことができた」",
+    "「劇的な変化があったわけではありませんが、自分の考えや想いを少しずつ言葉にできるようになってきた気がします」",
+  ]},
+  { theme: "みんなの話で、世界が広がった", quotes: [
+    "「ジャーナリングやメンバーとの対話を通じて、自分にはなかった新しい視点や多様な考え方に触れ、選択肢が広がったと感じました」",
+    "「普段、日本人以外の方と交流する機会がないので、アメリカやイギリスの方のお話を聞くのは、とても新鮮で刺激になりました」",
+  ]},
+  { theme: "小さな一歩が、出るように", quotes: [
+    "「完璧に準備してからじゃないと一歩が出なかったけれど、小さな一歩が実践できるようになった」",
+  ]},
+  { theme: "一人じゃないから、続けられる", quotes: [
+    "「一人だと細かい部分で行き詰まりがちですが、他の人と話すことで客観的な視点が持てて、話が前に進みます」",
+  ]},
+  { theme: "メンバーにとって、どんな場所？", quotes: [
+    "「癒される場所　自分に戻れる場所」",
+    "「安心して本音が言える場所」",
+    "「新しい気づきに出会える場所」",
+  ]},
+];
+
+const FAQ_GARDEN = [
+  { q: "ジャーナリング会では、何をするのですか？", a: "毎回テーマに沿った問いをもとに、ノートに書く時間と、話したい方だけのシェアの時間があります。最後は「今日の自分に、どんな言葉をかけてあげたい？」で締めます。" },
+  { q: "うまく書けなくても参加できますか？", a: "大丈夫です。きれいな文章にしなくてよく、1行でも、単語だけでもかまいません。「何を書けばいいか分からない」と書くこともジャーナリングです。" },
+  { q: "開催はオンラインですか？", a: "はい、オンライン開催です。昼の部と夜の部があり、隔週で開いています。スマホからでも参加できます。" },
+  { q: "料金はいくらですか？", a: "Blooming Gardenは月額¥3,500（はじめの3ヶ月）です。3ヶ月後、自分に合ったペースを選べます。" },
+];
+
+const FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_GARDEN.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 const FOR_WHO_LAUNCH = [
   "小さくでいいから、自分の名前で収益を作りたい",
@@ -373,11 +419,12 @@ export default function BloomingGardenPage() {
         <div className="max-w-3xl mx-auto">
           <span className="text-xs tracking-[0.3em] text-[#C4714A] uppercase">Voices</span>
           <h2 className="font-serif text-[#2B5F7A] mt-4 mb-4"
-            style={{fontSize:"clamp(1.6rem,3.5vw,2.4rem)",fontWeight:300}}>参加者の声</h2>
+            style={{fontSize:"clamp(1.6rem,3.5vw,2.4rem)",fontWeight:300}}>参加者・メンバーの声</h2>
           <p style={{fontSize:"0.82rem",color:"#7A8E9A",lineHeight:2,marginBottom:"2.5rem"}}>
-            体験会に参加した方の声です。参加したあと、今もメンバーとして続けている方もいます。
+            Blooming Gardenは、BLOOM LINKが主催するオンラインのジャーナリングサロンです。隔週で昼の部と夜の部を開いています。体験会に参加した方の声と、メンバーとして続けている方の声を、原文のまま紹介します。
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
+          <h3 className="font-serif text-[#2B5F7A] mb-5" style={{fontSize:"1.15rem",fontWeight:300}}>体験会に参加した方の声</h3>
+          <div className="grid md:grid-cols-2 gap-4" style={{marginBottom:"3.5rem"}}>
             {VOICES_GARDEN.map((v,i) => (
               <div key={i} className="bg-[#FAF8F3] rounded p-6">
                 <p style={{fontSize:"0.65rem",letterSpacing:"0.15em",color:"#C4714A",marginBottom:"0.9rem"}}>{v.label}</p>
@@ -390,6 +437,41 @@ export default function BloomingGardenPage() {
               </div>
             ))}
           </div>
+          <h3 className="font-serif text-[#2B5F7A] mb-2" style={{fontSize:"1.15rem",fontWeight:300}}>メンバーとして続けている方の声</h3>
+          <p style={{fontSize:"0.75rem",color:"#7A8E9A",lineHeight:1.9,marginBottom:"1.5rem"}}>
+            2026年10月のメンバーアンケート（回答6名）の言葉から。
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {MEMBER_VOICES_GARDEN.map((v,i) => (
+              <div key={i} className="bg-[#FAF8F3] rounded p-6">
+                <p style={{fontSize:"0.65rem",letterSpacing:"0.15em",color:"#C4714A",marginBottom:"0.9rem"}}>{v.theme}</p>
+                {v.quotes.map((q,j) => (
+                  <p key={j} style={{fontSize:"0.82rem",lineHeight:1.9,color:"#2A3540",marginBottom: j < v.quotes.length - 1 ? "0.7rem" : 0}}>{q}</p>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GARDEN FAQ */}
+      <section className="py-24 px-6" style={{background:"#FAF8F3"}}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }} />
+        <div className="max-w-3xl mx-auto">
+          <span className="text-xs tracking-[0.3em] text-[#C4714A] uppercase">FAQ</span>
+          <h2 className="font-serif text-[#2B5F7A] mt-4 mb-10"
+            style={{fontSize:"clamp(1.6rem,3.5vw,2.4rem)",fontWeight:300}}>よくある質問</h2>
+          <div className="space-y-4">
+            {FAQ_GARDEN.map((f,i) => (
+              <div key={i} className="bg-white rounded p-6">
+                <h3 className="font-serif text-[#2B5F7A]" style={{fontSize:"0.95rem",fontWeight:300,marginBottom:"0.6rem"}}>Q. {f.q}</h3>
+                <p style={{fontSize:"0.82rem",lineHeight:1.9,color:"#2A3540"}}>{f.a}</p>
+              </div>
+            ))}
+          </div>
+          <p className="font-serif text-[#2B5F7A] text-center" style={{fontSize:"1rem",fontWeight:300,lineHeight:2,marginTop:"3rem"}}>
+            Blooming Gardenは、頑張る時間というより、<br />今の自分と少しだけ向き合う時間です。
+          </p>
         </div>
       </section>
 
