@@ -44,6 +44,31 @@ const FOR_WHO_GARDEN = [
   "完璧でなくても、一歩踏み出したい",
 ];
 
+const VOICES_GARDEN = [
+  { label: "体験会参加者", quotes: [
+    "「ただみんなで感情をそのままに共有し合える場がすごい尊かったです！」",
+    "「すごく安心して参加できる場だと思いました。」",
+  ]},
+  { label: "体験会参加者", quotes: [
+    "「『自分は本当の本当は何がしたいんだろう？』ということを、もっともっと深掘りしていきたいなと思えて、これからがワクワクする時間になりました」",
+  ], note: "印象に残った言葉：「人生はスケジューリング。自分に許可を出せば、夢は予定に変わります」" },
+  { label: "体験会参加者", quotes: [
+    "「りえちゃんの声に癒されました〜！！ ゆっくり考えたり、お話しをする時間を確保できるのはとても嬉しい事に気がつきました。」",
+    "「私の中のほとんどが、家族とグリジャだったから、私の事を考えることが必要なんだと気がつきました。」",
+  ]},
+  { label: "体験会参加者", quotes: [
+    "「みんな落ち着いているけど前向きでとても良い時間を過ごせました」",
+    "「価値観や考え方が近そうな人たちが集まっていて、心地よかったです」",
+  ]},
+  { label: "体験会参加者", quotes: [
+    "「自分の思いを言葉に出して紙に書くとゆうことの大切さが分かりました。」",
+    "「シャンパンタワーの法則♡なるほど〜って思いました！先ずは自分が満たされること！」",
+  ]},
+  { label: "海外在住の日本語学習者", quotes: [
+    "“I appreciated how Rie created a relaxed, pressure-free atmosphere where everyone could participate in their own way. … Overall, the whole session was thoughtfully facilitated, and I love to join another session in the future ☺️”",
+  ]},
+];
+
 const FOR_WHO_LAUNCH = [
   "小さくでいいから、自分の名前で収益を作りたい",
   "やりたいことはあるけど、一人では動けずにいる",
@@ -337,6 +362,31 @@ export default function BloomingGardenPage() {
               <div key={i} className="flex items-start gap-3 bg-white p-4 rounded">
                 <span style={{width:5,height:5,borderRadius:"50%",background:"#C4714A",marginTop:"0.5rem",flexShrink:0,display:"inline-block"}} />
                 <p style={{fontSize:"0.82rem",lineHeight:1.8,color:"#2A3540"}}>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GARDEN VOICES */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <span className="text-xs tracking-[0.3em] text-[#C4714A] uppercase">Voices</span>
+          <h2 className="font-serif text-[#2B5F7A] mt-4 mb-4"
+            style={{fontSize:"clamp(1.6rem,3.5vw,2.4rem)",fontWeight:300}}>参加者の声</h2>
+          <p style={{fontSize:"0.82rem",color:"#7A8E9A",lineHeight:2,marginBottom:"2.5rem"}}>
+            体験会に参加した方の声です。参加したあと、今もメンバーとして続けている方もいます。
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {VOICES_GARDEN.map((v,i) => (
+              <div key={i} className="bg-[#FAF8F3] rounded p-6">
+                <p style={{fontSize:"0.65rem",letterSpacing:"0.15em",color:"#C4714A",marginBottom:"0.9rem"}}>{v.label}</p>
+                {v.quotes.map((q,j) => (
+                  <p key={j} style={{fontSize:"0.82rem",lineHeight:1.9,color:"#2A3540",marginBottom: j < v.quotes.length - 1 ? "0.7rem" : 0}}>{q}</p>
+                ))}
+                {v.note && (
+                  <p style={{fontSize:"0.75rem",lineHeight:1.9,color:"#7A8E9A",marginTop:"0.7rem"}}>{v.note}</p>
+                )}
               </div>
             ))}
           </div>
