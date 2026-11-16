@@ -176,6 +176,26 @@ export default function TopPage() {
         </div>
       </section>
 
+      {/* VOICES */}
+      <section className="py-24 px-6" style={{background: "#FAF8F3"}}>
+        <div className="max-w-3xl mx-auto">
+          <span className="text-xs tracking-[0.3em] text-[#C4714A] uppercase">Voices</span>
+          <h2 className="font-serif text-[#2B5F7A] mt-4 mb-4"
+            style={{fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 300}}>お客様の声</h2>
+          <p style={{fontSize: "0.82rem", color: "#7A8E9A", lineHeight: 2, marginBottom: "2.5rem"}}>
+            経営者サポートをご利用いただいている方からいただいたご感想を、原文のまま紹介します。
+          </p>
+          <div className="bg-white rounded p-6">
+            <p style={{fontSize: "0.65rem", letterSpacing: "0.15em", color: "#C4714A", marginBottom: "0.9rem"}}>経営者サポート</p>
+            <p style={{fontSize: "0.82rem", lineHeight: 1.9, color: "#2A3540", marginBottom: "0.7rem"}}>一人で抱えていることが多くてキャパオーバーでした。一人だと前に進みにくいことも。（ま、いっかになって先送りしてしまうこともあったので）</p>
+            <p style={{fontSize: "0.82rem", lineHeight: 1.9, color: "#2A3540", marginBottom: "0.7rem"}}>きちんとした分析に基づき、「誰かの」勝ちパターンではなく「私の」勝ちパターンを一緒に見つけていただけることが一番ありがたく感じています。</p>
+            <p style={{fontSize: "0.82rem", lineHeight: 1.9, color: "#2A3540", marginBottom: "0.7rem"}}>「これ、どう思います？」ってAIじゃなくて信頼できる「人」に相談できることも、私は安心感を感じています。</p>
+            <p style={{fontSize: "0.82rem", lineHeight: 1.9, color: "#2A3540", marginBottom: "0.7rem"}}>前に比べると、「やらなきゃ」じゃなくて「やりたい」発信ができる環境が整ってきました。</p>
+            <p style={{fontSize: "0.75rem", lineHeight: 1.9, color: "#7A8E9A", marginTop: "1rem"}}>山下 杏梨沙さん<br />エステサロン経営・個人サロン様専門プロデューサー</p>
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT RIE */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
